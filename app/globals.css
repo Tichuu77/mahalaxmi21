@@ -363,7 +363,7 @@
 
 /* ══════════════════════════════════════════════════
    AMENITIES
-══════════════════════════════════════════════════ */
+��═════════════════════════════════════════════════ */
 .amenities { background:var(--cream); }
 .amenities__header { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:clamp(1.5rem,3vw,2rem); margin-bottom:clamp(1.5rem,3vw,2.5rem); }
 .amenities__tabs { display:flex; flex-wrap:wrap; gap:8px; }
@@ -1144,98 +1144,64 @@
 .gal-tile--tall { grid-row: span 2; }
 
 /* ══════════════════════════════════════════════════
-   MOBILE BOTTOM NAVIGATION - APP-LIKE
+   MOBILE NAVIGATION - TRADITIONAL TOP NAV
 ══════════════════════════════════════════════════ */
-.mobile-bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  background: rgba(13, 26, 22, 0.98);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(201, 134, 43, 0.15);
-  padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
+@media (max-width: 1023px) {
+  .nav__links { display: none; }
+  .nav__cta { display: none; }
+  .nav__toggle { display: flex; }
+  .nav__inner { height: 60px; }
+  .nav__logo-img { width: 48px; height: 48px; }
 }
 
-@media (max-width: 767px) {
-  .mobile-bottom-nav { display: block; }
-  body { padding-bottom: 72px; }
-}
-
-.mobile-bottom-nav__inner {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.mobile-bottom-nav__item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  border-radius: 12px;
-  transition: all 0.25s ease;
-  min-width: 60px;
-}
-
-.mobile-bottom-nav__item.active {
-  background: rgba(201, 134, 43, 0.15);
-}
-
-.mobile-bottom-nav__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.5);
-  transition: all 0.25s ease;
-}
-
-.mobile-bottom-nav__icon.active {
-  color: var(--gold);
-  background: rgba(201, 134, 43, 0.1);
-}
-
-.mobile-bottom-nav__label {
-  font-size: 10px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 0.02em;
-  transition: color 0.25s ease;
-}
-
-.mobile-bottom-nav__label.active {
-  color: var(--gold);
-}
-
-/* Hide mobile toggle on mobile when bottom nav is visible */
-@media (max-width: 767px) {
+@media (min-width: 1024px) {
   .nav__toggle { display: none; }
-  .nav__inner { height: 56px; }
-  .nav__logo-img { width: 44px; height: 44px; }
+  .nav__links { 
+    display: flex; 
+    gap: 4px;
+    flex-wrap: nowrap;
+  }
+  .nav__link {
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* Overlay */
+.nav__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 55;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ══════════════════════════════════════════════════
-   REDESIGNED DRAWER - APP STYLE
+   MOBILE DRAWER - SLIDE FROM RIGHT
 ══════════════════════════════════════════════════ */
 .nav__drawer {
   position: fixed;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(320px, 85vw);
   z-index: 60;
   background: linear-gradient(180deg, #0d1a16 0%, #0a0e0c 100%);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  animation: drawerIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: slideInRight 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
 }
 
 .nav__drawer-header {
@@ -1289,67 +1255,50 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-.nav__drawer-label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 20px;
-}
-
-.nav__drawer-label-line {
-  width: 24px;
-  height: 2px;
-  background: var(--gold);
-  border-radius: 2px;
-}
-
-.nav__drawer-label-text {
-  font-size: 10px;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-}
-
-.nav__drawer-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  padding: 0 20px;
+/* Drawer Links */
+.nav__drawer-links {
   flex: 1;
-}
-
-.nav__drawer-card {
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 20px 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-  transition: all 0.25s ease;
+  gap: 4px;
 }
 
-.nav__drawer-card:hover,
-.nav__drawer-card:active {
-  background: rgba(201, 134, 43, 0.08);
-  border-color: rgba(201, 134, 43, 0.2);
-}
-
-.nav__drawer-card-icon {
-  width: 44px;
-  height: 44px;
+.nav__drawer-link {
+  display: block;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
   border-radius: 12px;
-  background: rgba(201, 134, 43, 0.1);
-  border: 1px solid rgba(201, 134, 43, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.nav__drawer-link:hover,
+.nav__drawer-link:active {
+  background: rgba(255, 255, 255, 0.05);
   color: var(--gold);
 }
 
+/* Drawer Badges */
+.nav__drawer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.nav__drawer-badge {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Legacy drawer card label - keep for compatibility */
 .nav__drawer-card-label {
   font-size: 13px;
   font-weight: 600;
@@ -1829,11 +1778,6 @@
   .nav {
     position: sticky;
     top: 0;
-  }
-  
-  /* iOS safe areas */
-  .mobile-bottom-nav {
-    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
   }
   
   /* Larger, more touchable tabs */
@@ -2351,7 +2295,7 @@
 
 /* ══════════════════════════════════════════════════
    AMENITIES V2 - REDESIGNED
-══════════════════════════════════════════════════ */
+════════════════════════════���═════════════════════ */
 .amenities-v2 {
   position: relative;
   background: #fff;
@@ -3048,7 +2992,7 @@
 
 @media (max-width: 767px) {
   .footer-v2 {
-    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
 
@@ -3370,15 +3314,8 @@
 }
 
 /* ══════════════════════════════════════════════════
-   MOBILE APP-LIKE GLOBAL ENHANCEMENTS
+   MOBILE GLOBAL ENHANCEMENTS
 ══════════════════════════════════════════════════ */
-
-/* Safe area insets for notched devices */
-@supports (padding: max(0px)) {
-  .mobile-bottom-nav {
-    padding-bottom: max(8px, env(safe-area-inset-bottom));
-  }
-}
 
 /* Smooth scrolling with momentum */
 html {
@@ -3386,8 +3323,7 @@ html {
 }
 
 /* Prevent text selection on interactive elements */
-.mobile-bottom-nav__item,
-.nav__drawer-card,
+.nav__drawer-link,
 .amenity-v2__card,
 .proj-card,
 .gallery-v2__scroll-item {
@@ -3480,14 +3416,6 @@ html {
 
 /* iOS-specific adjustments */
 @supports (-webkit-touch-callout: none) {
-  .mobile-bottom-nav {
-    padding-bottom: calc(8px + max(20px, env(safe-area-inset-bottom)));
-  }
-  
-  body {
-    padding-bottom: calc(72px + max(20px, env(safe-area-inset-bottom)));
-  }
-  
   .hero-v2 {
     min-height: -webkit-fill-available;
   }
@@ -3511,10 +3439,6 @@ html {
     --gold: #d4a03a;
     --green: #2a4a42;
   }
-  
-  .mobile-bottom-nav {
-    border-top-width: 2px;
-  }
 }
 
 /* Dark mode support - inherit system preference */
@@ -3529,9 +3453,9 @@ html {
 
 /* Print styles - hide navigation */
 @media print {
-  .mobile-bottom-nav,
   .nav,
-  .nav__drawer {
+  .nav__drawer,
+  .nav__overlay {
     display: none !important;
   }
   
