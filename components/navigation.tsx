@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback, useEffect, memo } from "react"
-import { X, Menu } from "lucide-react"
+import { X, MoreVertical } from "lucide-react"
 
 const navLinks = [
   { href: "#about",        label: "About"        },
@@ -63,7 +63,7 @@ export function Navigation() {
           </div>
           <div className="nav__toggle">
             <button onClick={toggle} className="nav__toggle-btn" aria-label={isOpen ? "Close menu" : "Open menu"} aria-expanded={isOpen}>
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
+              {isOpen ? <X size={20} /> : <MoreVertical size={20} />}
             </button>
           </div>
         </div>
