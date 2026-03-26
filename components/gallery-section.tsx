@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useRef, useEffect, useCallback, memo } from "react"
-import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react"
+import { useState, useRef, useEffect, useCallback, memo, useMemo } from "react"
+import { X, ZoomIn, ChevronLeft, ChevronRight, Image } from "lucide-react"
 
 const galleryItems = [
   { id: 1,  src: "/gallery1.jpg",  alt: "Morning View",           category: "Exterior"   },
@@ -20,7 +20,7 @@ const galleryItems = [
 const TOTAL = galleryItems.length
 const nextId = (id: number) => galleryItems[(galleryItems.findIndex(g => g.id === id) + 1) % TOTAL].id
 const prevId = (id: number) => galleryItems[(galleryItems.findIndex(g => g.id === id) - 1 + TOTAL) % TOTAL].id
-const tallSet = new Set([0, 6])
+const CATEGORIES = ["All", "Exterior", "Amenities", "Interior", "Landscape"] as const
 
 const Lightbox = memo(({ id, onClose, onPrev, onNext }: { id: number; onClose: () => void; onPrev: () => void; onNext: () => void }) => {
   const item  = galleryItems.find(g => g.id === id)!
@@ -71,7 +71,7 @@ Tile.displayName = "Tile"
 export function GallerySection() {
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [isVisible, setIsVisible]   = useState(false)
-  const [slide, setSlide]           = useState(0)
+  const [activeCategory, setActiveCategory] = useState("All")
   const sectionRef  = useRef<HTMLElement>(null)
   const hasAnimated = useRef(false)
 
@@ -95,68 +95,124 @@ export function GallerySection() {
     return () => window.removeEventListener("keydown", fn)
   }, [selectedId])
 
+  const filteredItems = useMemo(() => 
+    activeCategory === "All" ? galleryItems : galleryItems.filter(g => g.category === activeCategory),
+    [activeCategory]
+  )
+
   const open      = useCallback((id: number) => setSelectedId(id), [])
   const close     = useCallback(() => setSelectedId(null), [])
   const modalPrev = useCallback(() => setSelectedId(id => id !== null ? prevId(id) : null), [])
   const modalNext = useCallback(() => setSelectedId(id => id !== null ? nextId(id) : null), [])
-  const prevSlide = useCallback(() => setSlide(p => (p - 1 + TOTAL) % TOTAL), [])
-  const nextSlide = useCallback(() => setSlide(p => (p + 1) % TOTAL), [])
 
   const vis = isVisible
 
   return (
-    <section ref={sectionRef} id="gallery" aria-label="Project Gallery" className="gallery">
-      <div className="label-strip">
-        <div className="label-strip__line" />
-        <span className="label-strip__text">Gallery</span>
-        <div className="label-strip__fill" />
-        <span className="label-strip__right">{TOTAL} Photos</span>
+    <section ref={sectionRef} id="gallery" aria-label="Project Gallery" className="gallery-v2">
+      {/* Background */}
+      <div className="gallery-v2__bg">
+        <div className="gallery-v2__bg-gradient" />
       </div>
-      <div className="section-inner">
-        <div className={`rv ${vis ? "on" : ""} d0 gallery__heading`}>
-          <div className="section-eyebrow">
-            <div className="section-eyebrow__line" />
-            <span className="section-eyebrow__label">Real Sites. Real Progress.</span>
+
+      {/* Header Strip */}
+      <div className="gallery-v2__header-strip">
+        <div className="gallery-v2__header-inner">
+          <div className="gallery-v2__header-badge">
+            <Image size={14} aria-hidden="true" />
+            <span>Photo Gallery</span>
           </div>
-          <h2 className="section-heading">Inside Our <em>Projects</em> <span>&amp; Spaces</span></h2>
+          <span className="gallery-v2__header-count">{TOTAL} Photos</span>
+        </div>
+      </div>
+
+      <div className="gallery-v2__inner">
+        {/* Section Header */}
+        <div className={`gallery-v2__section-header rv ${vis ? "on" : ""} d0`}>
+          <h2 className="gallery-v2__title">
+            Inside Our <em>Projects</em> & Spaces
+          </h2>
+          <p className="gallery-v2__subtitle">
+            Real photographs from our actual sites - no renders, no stock photos.
+          </p>
         </div>
 
-        {/* Desktop grid */}
-        <div className={`gallery__grid rv ${vis ? "on" : ""} d1`}>
-          {galleryItems.map((item, i) => (
-            <Tile key={item.id} item={item} tall={tallSet.has(i)} visible={vis} index={i} onOpen={open} />
+        {/* Category Filter - Horizontal Scroll */}
+        <div className={`gallery-v2__filter-wrap rv ${vis ? "on" : ""} d1`}>
+          <div className="gallery-v2__filters">
+            {CATEGORIES.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`gallery-v2__filter ${activeCategory === cat ? "active" : ""}`}
+                aria-pressed={activeCategory === cat}
+              >
+                {cat}
+                {activeCategory === cat && (
+                  <span className="gallery-v2__filter-count">
+                    {cat === "All" ? TOTAL : galleryItems.filter(g => g.category === cat).length}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Masonry-style Grid - Desktop */}
+        <div className={`gallery-v2__grid rv ${vis ? "on" : ""} d2`}>
+          {filteredItems.map((item, i) => (
+            <div 
+              key={item.id} 
+              className={`gallery-v2__item stagger-item ${vis ? "on" : ""} s${i % 12}`}
+              onClick={() => open(item.id)}
+            >
+              <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+              <div className="gallery-v2__item-overlay">
+                <div className="gallery-v2__item-zoom">
+                  <ZoomIn size={18} aria-hidden="true" />
+                </div>
+                <div className="gallery-v2__item-info">
+                  <span className="gallery-v2__item-category">{item.category}</span>
+                  <span className="gallery-v2__item-name">{item.alt}</span>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Mobile slider */}
-        <div className={`gallery__mob rv ${vis ? "on" : ""} d1`}>
-          <div className="gallery__mob-card" onClick={() => open(galleryItems[slide].id)}>
-            <img src={galleryItems[slide].src} alt={galleryItems[slide].alt} loading="lazy" decoding="async" />
-            <div className="gallery__mob-overlay" />
-            <div className="gallery__mob-caption">
-              <span className="gallery__mob-cat">{galleryItems[slide].category}</span>
-              <p className="gallery__mob-name">{galleryItems[slide].alt}</p>
-            </div>
-            <div className="gallery__mob-zoom"><ZoomIn size={14} aria-hidden="true" /></div>
+        {/* Mobile Horizontal Scroll Gallery */}
+        <div className={`gallery-v2__mobile rv ${vis ? "on" : ""} d2`}>
+          <div className="gallery-v2__scroll">
+            {filteredItems.map((item) => (
+              <div 
+                key={item.id} 
+                className="gallery-v2__scroll-item"
+                onClick={() => open(item.id)}
+              >
+                <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+                <div className="gallery-v2__scroll-overlay">
+                  <span className="gallery-v2__scroll-category">{item.category}</span>
+                  <span className="gallery-v2__scroll-name">{item.alt}</span>
+                </div>
+                <div className="gallery-v2__scroll-zoom">
+                  <ZoomIn size={14} aria-hidden="true" />
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="gallery__controls">
-            <button onClick={prevSlide} aria-label="Previous photo" className="gallery__nav-btn"><ChevronLeft size={16} /></button>
-            <div className="gallery__dots">
-              {galleryItems.map((_, i) => (
-                <button key={i} onClick={() => setSlide(i)} aria-label={`Photo ${i + 1}`} className={`gallery__dot${i === slide ? " active" : ""}`} />
-              ))}
-            </div>
-            <button onClick={nextSlide} aria-label="Next photo" className="gallery__nav-btn"><ChevronRight size={16} /></button>
-          </div>
+          <p className="gallery-v2__scroll-hint">Swipe to explore more</p>
         </div>
       </div>
 
-      <div className="trust-bar">
-        <div className="trust-bar__inner">
-          <p className="trust-bar__label">Every frame, a promise</p>
-          <div className="trust-bar__items">
+      {/* Trust Bar */}
+      <div className="gallery-v2__trust-bar">
+        <div className="gallery-v2__trust-inner">
+          <span className="gallery-v2__trust-label">Every frame, a promise</span>
+          <div className="gallery-v2__trust-items">
             {["Real Photography", "Actual Sites", "No Renders"].map(label => (
-              <div key={label} className="trust-bar__item"><div className="trust-bar__dot" /><span className="trust-bar__name">{label}</span></div>
+              <div key={label} className="gallery-v2__trust-item">
+                <span className="gallery-v2__trust-dot" />
+                <span>{label}</span>
+              </div>
             ))}
           </div>
         </div>

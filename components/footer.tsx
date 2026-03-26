@@ -1,7 +1,7 @@
 "use client"
 
 import { memo } from "react"
-import { Phone, Mail, MapPin } from "lucide-react"
+import { Phone, Mail, MapPin, ArrowUpRight, Heart } from "lucide-react"
 
 const navLinks = [
   { href: "#about",        label: "About Us"        },
@@ -14,111 +14,120 @@ const navLinks = [
   { href: "#faq",          label: "FAQ"             },
   { href: "#contact",      label: "Contact Us"      },
 ]
+
 const contacts = [
-  { icon: Phone, href: "tel:+919970501128",            label: "+91 9970501128" },
-  // { icon: Phone, href: "tel:+917378624062",            label: "+91 7378624062" },
-  { icon: Mail,  href: "mailto:manoj.mungale@gmail.com",  label: "manoj.mungale@gmail.com" },
+  { icon: Phone, href: "tel:+919970501128",              label: "+91 9970501128" },
+  { icon: Mail,  href: "mailto:manoj.mungale@gmail.com", label: "manoj.mungale@gmail.com" },
 ]
 
 export const Footer = memo(() => (
-  <footer className="footer" aria-label="Footer">
-    <div className="footer__dot-bg" />
-    <div className="footer__glow-1" />
-    <div className="footer__glow-2" />
+  <footer className="footer-v2" aria-label="Footer">
+    {/* Background */}
+    <div className="footer-v2__bg">
+      <div className="footer-v2__bg-pattern" />
+      <div className="footer-v2__glow-1" />
+      <div className="footer-v2__glow-2" />
+    </div>
 
-    <div className="footer__inner">
-      <div className="footer__grid">
-        {/* Brand */}
-        <div>
-          <div className="footer__logo-wrap">
-            <img src="/Malaxmi-Final-Logo-1.png" alt="Mahalaxmi Infra Logo" width={48} height={48} loading="lazy" className="footer__logo-img" />
+    <div className="footer-v2__inner">
+      {/* Top Section - Logo & CTA */}
+      <div className="footer-v2__top">
+        <div className="footer-v2__brand">
+          <div className="footer-v2__logo">
+            <img src="/Malaxmi-Final-Logo-1.png" alt="Mahalaxmi Infra Logo" width={56} height={56} loading="lazy" />
             <div>
-              <div className="footer__logo-name">Mahalaxmi Infra</div>
-              <div className="footer__logo-sub">RERA Approved</div>
+              <div className="footer-v2__logo-name">Mahalaxmi Infra</div>
+              <div className="footer-v2__logo-sub">RERA Approved</div>
             </div>
           </div>
-          <p className="footer__about-text">Nagpur's most trusted name in NMRDA sanctioned, RERA approved residential plots. Building landmarks since 2012.</p>
-          <div className="gold-badge">
-            <div className="gold-badge__dot" />
-            {/* <span className="gold-badge__text">MAHA RERA NO. A50500044725</span> */}
-          </div>
+          <p className="footer-v2__tagline">
+            Nagpur&apos;s most trusted name in NMRDA sanctioned, RERA approved residential plots. Building landmarks since 2012.
+          </p>
         </div>
+        
+        <div className="footer-v2__cta">
+          <a href="#contact" className="footer-v2__cta-btn">
+            <span>Schedule a Site Visit</span>
+            <ArrowUpRight size={18} />
+          </a>
+          <a href="tel:+919970501128" className="footer-v2__cta-phone">
+            <Phone size={16} />
+            <span>+91 9970501128</span>
+          </a>
+        </div>
+      </div>
 
-        {/* Navigation */}
-        <div className="footer__col-divider">
-          <div className="footer__col-header">
-            <div className="footer__col-line" />
-            <h3 className="footer__col-label">Quick Links</h3>
-          </div>
-          <ul className="footer__nav-list">
+      {/* Links Grid */}
+      <div className="footer-v2__links-grid">
+        {/* Quick Links */}
+        <div className="footer-v2__links-col">
+          <h3 className="footer-v2__col-title">Quick Links</h3>
+          <ul className="footer-v2__links">
             {navLinks.slice(0, 5).map(link => (
               <li key={link.href}>
-                <a href={link.href} className="footer__nav-link">
-                  <span className="footer__nav-link-dash" />
-                  {link.label}
-                </a>
+                <a href={link.href} className="footer-v2__link">{link.label}</a>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* More links */}
-        <div className="footer__col-divider">
-          <div className="footer__col-header">
-            <div className="footer__col-line" />
-            <h3 className="footer__col-label">Information</h3>
-          </div>
-          <ul className="footer__nav-list">
+        {/* Information */}
+        <div className="footer-v2__links-col">
+          <h3 className="footer-v2__col-title">Information</h3>
+          <ul className="footer-v2__links">
             {navLinks.slice(5).map(link => (
               <li key={link.href}>
-                <a href={link.href} className="footer__nav-link">
-                  <span className="footer__nav-link-dash" />
-                  {link.label}
-                </a>
+                <a href={link.href} className="footer-v2__link">{link.label}</a>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Contact */}
-        <div className="footer__col-divider">
-          <div className="footer__col-header">
-            <div className="footer__col-line" />
-            <h3 className="footer__col-label">Contact</h3>
+        <div className="footer-v2__links-col">
+          <h3 className="footer-v2__col-title">Contact</h3>
+          <div className="footer-v2__contact-info">
+            <p className="footer-v2__contact-name">Monoj Mungle</p>
+            <ul className="footer-v2__contact-list">
+              {contacts.map(c => {
+                const Icon = c.icon
+                return (
+                  <li key={c.label}>
+                    <a href={c.href} className="footer-v2__contact-link">
+                      <Icon size={14} />
+                      <span>{c.label}</span>
+                    </a>
+                  </li>
+                )
+              })}
+              <li className="footer-v2__address">
+                <MapPin size={14} />
+                <address>
+                  Flat 103/104, Laxmivihar Apartment,<br />
+                  Wardha Road, Somalwada,<br />
+                  Nagpur 440025
+                </address>
+              </li>
+            </ul>
           </div>
-          <p className="footer__contact-name">Monoj Mungle</p>
-          <ul className="footer__contact-list">
-            {contacts.map(c => {
-              const Icon = c.icon
-              return (
-                <li key={c.label}>
-                  <a href={c.href} className="footer__contact-link">
-                    <div className="footer__contact-icon-wrap"><Icon size={12} className="footer__contact-icon" aria-hidden="true" /></div>
-                    {c.label}
-                  </a>
-                </li>
-              )
-            })}
-            <li>
-              <div className="footer__addr">
-                <div className="footer__contact-icon-wrap"><MapPin size={12} className="footer__contact-icon" aria-hidden="true" /></div>
-                <p className="footer__addr-text">Flat 103/104, Laxmivihar Apartment,<br />Wardha Road, Somalwada,<br />Nagpur 440025</p>
-              </div>
-            </li>
-          </ul>
         </div>
       </div>
 
-      <div className="footer__bottom">
-        <p className="footer__copy">© {new Date().getFullYear()} Mahalaxmi Infra. All rights reserved.</p>
-        <div className="footer__certs">
-          {["NMRDA Approved", "RERA Certified", "ISO Certified"].map(cert => (
-            <div key={cert} className="footer__cert">
-              <div className="footer__cert-dot" />
-              <span className="footer__cert-name">{cert}</span>
-            </div>
-          ))}
-        </div>
+      {/* Trust Badges */}
+      <div className="footer-v2__badges">
+        {["NMRDA Approved", "RERA Certified", "ISO Certified", "70+ Projects", "17K+ Families"].map(badge => (
+          <span key={badge} className="footer-v2__badge">{badge}</span>
+        ))}
+      </div>
+
+      {/* Bottom */}
+      <div className="footer-v2__bottom">
+        <p className="footer-v2__copy">
+          &copy; {new Date().getFullYear()} Mahalaxmi Infra. All rights reserved.
+        </p>
+        <p className="footer-v2__made">
+          Made with <Heart size={12} className="footer-v2__heart" /> in Nagpur
+        </p>
       </div>
     </div>
   </footer>

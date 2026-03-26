@@ -1,6 +1,6 @@
 import type React from "react"
-import type { Metadata } from "next"
-import { Poppins, Inter } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { Poppins, Inter, Cormorant_Garamond } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
@@ -17,6 +17,25 @@ const inter = Inter({
   variable: "--font-sans",
   display: "swap",
 })
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+})
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#30534A" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d1a16" },
+  ],
+  viewportFit: "cover",
+}
 
 const BASE_URL = "https://www.mm.mahalaxmiinfra.com"
 
@@ -236,7 +255,7 @@ export default function RootLayout({
         <meta name="geo.position" content="21.1458;79.0882" />
         <meta name="ICBM" content="21.1458, 79.0882" />
       </head>
-      <body className={`${poppins.variable} ${inter.variable} font-sans antialiased`}>
+      <body className={`${poppins.variable} ${inter.variable} ${cormorant.variable} font-sans antialiased`}>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TCG77MQD"

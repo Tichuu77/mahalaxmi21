@@ -1,13 +1,15 @@
 "use client"
 
-import { useEffect, useState, useCallback } from "react"
-import { ArrowRight, MapPin, TrendingUp, Award, Shield, CheckCircle2 } from "lucide-react"
+import { useEffect, useState } from "react"
+import { ArrowRight, MapPin, TrendingUp, Award, Shield, CheckCircle2, Play, ChevronDown } from "lucide-react"
 
-const MOBILE_STATS = [
-  { value: "70+",  label: "Projects"      },
-  { value: "17K+", label: "Families"      },
-  { value: "100%", label: "RERA Approved" },
+const STATS = [
+  { value: "70+",  label: "Projects",       icon: "building" },
+  { value: "17K+", label: "Families",       icon: "users"    },
+  { value: "13+",  label: "Years",          icon: "calendar" },
+  { value: "100%", label: "RERA Approved",  icon: "check"    },
 ]
+
 const TRUST = [
   { icon: Shield,       label: "NMRDA Sanctioned" },
   { icon: CheckCircle2, label: "RERA Approved"    },
@@ -25,94 +27,102 @@ export function HeroSection() {
   const L = isLoaded
 
   return (
-    <section id="home" aria-label="Mahalaxmi Infra – Premium Plots in Nagpur" className="hero">
-      <div className="hero__bg" />
-      <div className="hero__glow-1" />
-      <div className="hero__glow-2" />
-
-      <div className="hero__inner">
-        <div className="hero__grid">
-          {/* Text column */}
-          <div>
-            <div className={`rv ${L?"on":""} d0 hero__eyebrow`}>
-              <MapPin size={12} className="hero__eyebrow-icon" aria-hidden="true" />
-              <span className="hero__eyebrow-text">Nagpur, Maharashtra</span>
-            </div>
-
-            <h1 className={`rv ${L?"on":""} d1 hero__h1`}>
-              Premium <em>RERA</em><br />
-              Approved Plots<br />
-              <span>in Nagpur</span>
-            </h1>
-
-            <p className={`rv ${L?"on":""} d2 hero__sub`}>
-              NMRDA sanctioned residential plots near MIHAN, Wardha Road &amp; Hingna.
-              Starting <strong>₹22 Lakh</strong>. Bank loan up to 90% available.
-            </p>
-
-            <div className={`rv ${L?"on":""} d2 hero__stats`}>
-              {MOBILE_STATS.map(s => (
-                <div key={s.label} className="hero__stat">
-                  <div className="hero__stat-val">{s.value}</div>
-                  <div className="hero__stat-lbl">{s.label}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className={`rv ${L?"on":""} d3 hero__cta-group`}>
-              <a href="#projects" className="hero__btn-primary" aria-label="Explore our projects">
-                Explore Projects <ArrowRight size={16} aria-hidden="true" />
-              </a>
-              <a href="#contact" className="hero__btn-secondary">
-                Schedule Visit
-              </a>
-            </div>
-          </div>
-
-          {/* Image column — desktop only */}
-          <div className={`rv-r ${L?"on":""} d2 hero__img-panel`}>
-            <div className="hero__photo">
-              <img src="/hero-bg.jpeg" alt="Mahalaxmi Infra premium residential plots in Nagpur" loading="eager" fetchPriority="high" width={520} height={650} />
-              <div className="hero__photo-overlay" />
-            </div>
-            <div className="hero__badge hero__badge--price">
-              <TrendingUp size={16} className="hero__badge--price-icon" aria-hidden="true" />
-              <div>
-                <div className="hero__badge--price-val">₹22L</div>
-                <div className="hero__badge--price-lbl">Starting Price</div>
-              </div>
-            </div>
-            <div className="hero__badge hero__badge--rera">
-              <Award size={14} className="icon-gold" aria-hidden="true" />
-              <div>
-                <div className="hero__badge--rera-title">RERA Approved</div>
-                <div className="hero__badge--rera-sub">MAHA RERA</div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <section id="home" aria-label="Mahalaxmi Infra – Premium Plots in Nagpur" className="hero-v2">
+      {/* Background layers */}
+      <div className="hero-v2__bg">
+        <img 
+          src="/hero-bg.jpeg" 
+          alt="" 
+          className="hero-v2__bg-img" 
+          loading="eager" 
+          fetchPriority="high"
+        />
+        <div className="hero-v2__bg-overlay" />
+        <div className="hero-v2__bg-gradient" />
       </div>
 
-      {/* Scroll indicator */}
-      <div className={`rv ${L?"on":""} d7 hero__scroll`}>
-        <div className="hero__scroll-line">
-          <div className="hero__scroll-track" />
-          <div className="hero__scroll-dot" />
-        </div>
-        <span className="hero__scroll-lbl">SCROLL</span>
+      {/* Floating decorative elements */}
+      <div className="hero-v2__decor">
+        <div className="hero-v2__decor-circle hero-v2__decor-circle--1" />
+        <div className="hero-v2__decor-circle hero-v2__decor-circle--2" />
+        <div className="hero-v2__decor-line hero-v2__decor-line--1" />
+        <div className="hero-v2__decor-line hero-v2__decor-line--2" />
       </div>
 
-      {/* Trust strip */}
-      <div className={`rv ${L?"on":""} d6 hero__trust`}>
-        {TRUST.map(t => {
-          const Icon = t.icon
-          return (
-            <div key={t.label} className="hero__trust-item">
-              <div className="hero__trust-icon"><Icon size={11} aria-hidden="true" /></div>
-              <span className="hero__trust-label">{t.label}</span>
+      <div className="hero-v2__inner">
+        {/* Top Badge */}
+        <div className={`hero-v2__top-badge ${L ? "animate-in" : ""}`}>
+          <div className="hero-v2__location-badge">
+            <MapPin size={14} aria-hidden="true" />
+            <span>Nagpur, Maharashtra</span>
+          </div>
+        </div>
+
+        {/* Main Content - Centered */}
+        <div className="hero-v2__content">
+          <h1 className={`hero-v2__title ${L ? "animate-in delay-1" : ""}`}>
+            <span className="hero-v2__title-line">Premium</span>
+            <span className="hero-v2__title-highlight">RERA Approved</span>
+            <span className="hero-v2__title-line">Plots in Nagpur</span>
+          </h1>
+
+          <p className={`hero-v2__subtitle ${L ? "animate-in delay-2" : ""}`}>
+            NMRDA sanctioned residential plots near MIHAN, Wardha Road & Hingna.
+            Starting <strong>Rs. 22 Lakh</strong> with up to 90% bank financing.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className={`hero-v2__cta-group ${L ? "animate-in delay-3" : ""}`}>
+            <a href="#projects" className="hero-v2__cta-primary">
+              <span>Explore Projects</span>
+              <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <a href="#contact" className="hero-v2__cta-secondary">
+              <Play size={16} aria-hidden="true" />
+              <span>Schedule Visit</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Stats Grid - Unique Bento-style */}
+        <div className={`hero-v2__stats ${L ? "animate-in delay-4" : ""}`}>
+          {STATS.map((stat, index) => (
+            <div key={stat.label} className={`hero-v2__stat hero-v2__stat--${index + 1}`}>
+              <div className="hero-v2__stat-value">{stat.value}</div>
+              <div className="hero-v2__stat-label">{stat.label}</div>
             </div>
-          )
-        })}
+          ))}
+        </div>
+
+        {/* Price Badge - Floating */}
+        <div className={`hero-v2__price-badge ${L ? "animate-in delay-5" : ""}`}>
+          <div className="hero-v2__price-icon">
+            <TrendingUp size={18} aria-hidden="true" />
+          </div>
+          <div className="hero-v2__price-content">
+            <span className="hero-v2__price-label">Starting from</span>
+            <span className="hero-v2__price-value">Rs. 22 Lakh</span>
+          </div>
+        </div>
+
+        {/* Trust Badges */}
+        <div className={`hero-v2__trust ${L ? "animate-in delay-6" : ""}`}>
+          {TRUST.map(t => {
+            const Icon = t.icon
+            return (
+              <div key={t.label} className="hero-v2__trust-item">
+                <Icon size={14} aria-hidden="true" />
+                <span>{t.label}</span>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className={`hero-v2__scroll ${L ? "animate-in delay-7" : ""}`}>
+          <ChevronDown size={20} aria-hidden="true" />
+          <span>Scroll to explore</span>
+        </div>
       </div>
     </section>
   )
