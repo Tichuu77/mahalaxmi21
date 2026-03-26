@@ -1,9 +1,26 @@
 "use client"
 
 import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react"
-import { Award, Users, TrendingUp, Building2, Shield, CheckCircle2 } from "lucide-react"
+import { Award, Users, TrendingUp, Building2, Shield, CheckCircle2, ArrowRight, Play } from "lucide-react"
 
 const TARGETS = { projects: 70, clients: 17000, years: 13, sqft: 500 }
+
+// Mobile stat card component
+const MobileStatCard = memo(({ stat, index, visible }: { stat: any; index: number; visible: boolean }) => {
+  const Icon = stat.icon
+  return (
+    <div className={`about-v2__stat-card stagger-item ${visible ? "on" : ""} s${index}`}>
+      <div className="about-v2__stat-icon">
+        <Icon size={20} aria-hidden="true" />
+      </div>
+      <div className="about-v2__stat-content">
+        <div className="about-v2__stat-value">{stat.value.toLocaleString()}{stat.suffix}</div>
+        <div className="about-v2__stat-label">{stat.label}</div>
+      </div>
+    </div>
+  )
+})
+MobileStatCard.displayName = "MobileStatCard"
 
 export function AboutSection() {
   const [counters, setCounters] = useState({ projects: 0, clients: 0, years: 0, sqft: 0 })
@@ -40,19 +57,19 @@ export function AboutSection() {
   }, [animateCounters])
 
   const features = useMemo(() => [
-    { icon: Award,        text: "Premium Materials"    },
-    { icon: Users,        text: "Expert Craftsmanship" },
-    { icon: Shield,       text: "Quality Assurance"    },
-    { icon: CheckCircle2, text: "Timely Delivery"      },
-    { icon: TrendingUp,   text: "Value Appreciation"   },
-    { icon: Building2,    text: "Modern Architecture"  },
+    { icon: Award,        text: "Premium Materials",    desc: "High-quality construction materials" },
+    { icon: Users,        text: "Expert Craftsmanship", desc: "Skilled professionals at every step" },
+    { icon: Shield,       text: "Quality Assurance",    desc: "Rigorous quality control standards" },
+    { icon: CheckCircle2, text: "Timely Delivery",      desc: "Projects delivered on schedule" },
+    { icon: TrendingUp,   text: "Value Appreciation",   desc: "Strategic locations for growth" },
+    { icon: Building2,    text: "Modern Architecture",  desc: "Contemporary design principles" },
   ], [])
 
   const stats = useMemo(() => [
-    { value: counters.projects, suffix: "+",  label: "Completed Projects", icon: Building2,  dark: false },
-    { value: counters.clients,  suffix: "+",  label: "Happy Families",     icon: Users,      dark: true  },
-    { value: counters.years,    suffix: "+",  label: "Years Experience",   icon: Award,      dark: false },
-    { value: counters.sqft,     suffix: "K+", label: "Sq.Ft Delivered",    icon: TrendingUp, dark: true  },
+    { value: counters.projects, suffix: "+",  label: "Completed Projects", icon: Building2  },
+    { value: counters.clients,  suffix: "+",  label: "Happy Families",     icon: Users      },
+    { value: counters.years,    suffix: "+",  label: "Years Experience",   icon: Award      },
+    { value: counters.sqft,     suffix: "K+", label: "Sq.Ft Delivered",    icon: TrendingUp },
   ], [counters])
 
   const trust = useMemo(() => [
@@ -64,103 +81,103 @@ export function AboutSection() {
   const vis = isVisible
 
   return (
-    <section id="about" ref={sectionRef} aria-label="About Mahalaxmi Infra" className="about">
-      {/* Label strip */}
-      <div className="label-strip">
-        <div className="label-strip__line" />
-        <span className="label-strip__text">About Us</span>
-        <div className="label-strip__fill" />
-        <span className="label-strip__right">Since 2012</span>
+    <section id="about" ref={sectionRef} aria-label="About Mahalaxmi Infra" className="about-v2">
+      {/* Decorative background */}
+      <div className="about-v2__bg">
+        <div className="about-v2__bg-pattern" />
+        <div className="about-v2__bg-gradient" />
       </div>
 
-      <div className="section-inner">
-        <div className="about__layout">
-          {/* Left — copy */}
-          <div>
-            <div className={`rv ${vis?"on":""} d0 section-eyebrow`}>
-              <div className="section-eyebrow__line" />
-              <span className="section-eyebrow__label">Our Story</span>
-            </div>
-            <h2 className={`rv ${vis?"on":""} d1 section-heading`}>
-              Building <em>Dreams</em><br />
-              <span>Since 2012</span>
-            </h2>
-            <p className={`rv ${vis?"on":""} d2 section-sub`}>
-              Mahalaxmi Infra is Nagpur's most trusted name in NMRDA sanctioned and RERA approved residential plots.
-              With 70+ completed projects and 17,000+ families settled, we've turned land into lifestyles for over a decade.
-            </p>
-
-            <div className={`rv ${vis?"on":""} d3 about__features`}>
-              {features.map(({ icon: Icon, text }) => (
-                <div key={text} className="about__feature">
-                  <Icon size={14} className="about__feature-icon" aria-hidden="true" />
-                  <span className="about__feature-text">{text}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className={`rv ${vis?"on":""} d4 about__trust`}>
-              {trust.map(({ icon: Icon, label }) => (
-                <div key={label} className="about__trust-pill">
-                  <Icon size={12} className="about__trust-icon" aria-hidden="true" />
-                  <span className="about__trust-label">{label}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className={`rv ${vis?"on":""} d5`}>
-              <a href="#projects" className="about__cta">
-                Explore Our Projects
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-              </a>
-            </div>
+      {/* Header Strip */}
+      <div className="about-v2__header-strip">
+        <div className="about-v2__header-inner">
+          <div className="about-v2__header-badge">
+            <span className="about-v2__header-badge-dot" />
+            <span>About Us</span>
           </div>
-
-          {/* Right — stats */}
-          <div className={`rv-r ${vis?"on":""} d1`}>
-            <div className="about__stats-header">
-              <div className="about__stats-header-glow1" />
-              <div className="about__stats-header-glow2" />
-              <div className="about__stats-header-label">Our Track Record</div>
-              <div className="about__stats-header-title">Numbers That<br /><em>Speak</em> for Us</div>
-              <div className="about__stats-header-line" />
-            </div>
-
-            <div className="about__stats-grid">
-              {stats.map(stat => {
-                const Icon = stat.icon
-                const dark = stat.dark
-                return (
-                  <div key={stat.label} className={`about__stat-card ${dark ? "about__stat-card--dark" : "about__stat-card--light"}`}>
-                    <div className={`about__stat-corner ${dark ? "about__stat-corner--dark" : "about__stat-corner--light"}`} />
-                    <div className={`about__stat-icon-wrap ${dark ? "about__stat-icon-wrap--dark" : "about__stat-icon-wrap--light"}`}>
-                      <Icon size={17} className="about__stat-icon" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <div className="about__stat-val">{stat.value.toLocaleString()}<span>{stat.suffix}</span></div>
-                      <div className={`about__stat-lbl ${dark ? "about__stat-lbl--dark" : "about__stat-lbl--light"}`}>{stat.label}</div>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-
-            <div className="about__rera-note">
-              <div className="about__rera-dot" />
-              <span className="about__rera-text">MAHA RERA NO. A50500044725 · ISO Certified</span>
-            </div>
-          </div>
+          <span className="about-v2__header-since">Since 2012</span>
         </div>
       </div>
 
-      <div className="trust-bar">
-        <div className="trust-bar__inner">
-          <p className="trust-bar__label">Building landmarks since 2012</p>
-          <div className="trust-bar__items">
+      <div className="about-v2__inner">
+        {/* Section Header */}
+        <div className={`about-v2__section-header rv ${vis ? "on" : ""} d0`}>
+          <h2 className="about-v2__title">
+            Building <em>Dreams</em> Into Reality
+          </h2>
+          <p className="about-v2__subtitle">
+            Nagpur&apos;s most trusted name in NMRDA sanctioned and RERA approved residential plots. 
+            With 70+ completed projects and 17,000+ families settled, we&apos;ve turned land into lifestyles for over a decade.
+          </p>
+        </div>
+
+        {/* Stats Row - Horizontal Scroll on Mobile */}
+        <div className={`about-v2__stats-scroll rv ${vis ? "on" : ""} d1`}>
+          {stats.map((stat, index) => (
+            <MobileStatCard key={stat.label} stat={stat} index={index} visible={vis} />
+          ))}
+        </div>
+
+        {/* Features Grid */}
+        <div className={`about-v2__features rv ${vis ? "on" : ""} d2`}>
+          <div className="about-v2__features-header">
+            <div className="about-v2__features-line" />
+            <span className="about-v2__features-label">Why Families Trust Us</span>
+          </div>
+          <div className="about-v2__features-grid">
+            {features.map(({ icon: Icon, text, desc }, index) => (
+              <div key={text} className={`about-v2__feature stagger-item ${vis ? "on" : ""} s${index}`}>
+                <div className="about-v2__feature-icon">
+                  <Icon size={18} aria-hidden="true" />
+                </div>
+                <div className="about-v2__feature-content">
+                  <h4 className="about-v2__feature-title">{text}</h4>
+                  <p className="about-v2__feature-desc">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Trust Badges + CTA */}
+        <div className={`about-v2__bottom rv ${vis ? "on" : ""} d3`}>
+          <div className="about-v2__trust-badges">
+            {trust.map(({ icon: Icon, label }) => (
+              <div key={label} className="about-v2__trust-badge">
+                <Icon size={14} aria-hidden="true" />
+                <span>{label}</span>
+              </div>
+            ))}
+          </div>
+          
+          <div className="about-v2__cta-group">
+            <a href="#projects" className="about-v2__cta-primary">
+              <span>Explore Projects</span>
+              <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <a href="#contact" className="about-v2__cta-secondary">
+              <Play size={16} aria-hidden="true" />
+              <span>Schedule Visit</span>
+            </a>
+          </div>
+        </div>
+
+        {/* RERA Note */}
+        <div className={`about-v2__rera rv ${vis ? "on" : ""} d4`}>
+          <div className="about-v2__rera-dot" />
+          <span>MAHA RERA NO. A50500044725 | ISO Certified | 70+ Completed Projects</span>
+        </div>
+      </div>
+
+      {/* Bottom Trust Bar */}
+      <div className="about-v2__trust-bar">
+        <div className="about-v2__trust-bar-inner">
+          <span className="about-v2__trust-bar-label">Building landmarks since 2012</span>
+          <div className="about-v2__trust-bar-items">
             {["NMRDA Approved", "Up to 90% Finance", "RERA Certified"].map(label => (
-              <div key={label} className="trust-bar__item">
-                <div className="trust-bar__dot" />
-                <span className="trust-bar__name">{label}</span>
+              <div key={label} className="about-v2__trust-bar-item">
+                <span className="about-v2__trust-bar-dot" />
+                <span>{label}</span>
               </div>
             ))}
           </div>

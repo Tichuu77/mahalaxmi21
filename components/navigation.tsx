@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback, useEffect, memo } from "react"
-import { X, Menu } from "lucide-react"
+import { X, MoreVertical } from "lucide-react"
 
 const navLinks = [
   { href: "#about",        label: "About"        },
@@ -33,14 +33,25 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", fn)
   }, [])
 
+  // Prevent body scroll when drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => { document.body.style.overflow = "" }
+  }, [isOpen])
+
   const toggle    = useCallback(() => setIsOpen(p => !p), [])
   const closeMenu = useCallback(() => setIsOpen(false), [])
 
   return (
     <>
+      {/* Top navigation */}
       <nav role="navigation" aria-label="Main navigation" className={`nav ${scrolled ? "nav--scrolled" : "nav--top"}`}>
         <div className="nav__inner">
-          <a href="#" aria-label="Mahalaxmi Infra – Home" className="nav__logo">
+          <a href="#home" aria-label="Mahalaxmi Infra – Home" className="nav__logo">
             <img src="/Malaxmi-Final-Logo-1.png" alt="Mahalaxmi Infra Logo" width={72} height={72} className="nav__logo-img" fetchPriority="high" decoding="sync" />
             <div>
               <div className="nav__logo-name">Mahalaxmi Infra</div>
@@ -52,26 +63,49 @@ export function Navigation() {
           </div>
           <div className="nav__toggle">
             <button onClick={toggle} className="nav__toggle-btn" aria-label={isOpen ? "Close menu" : "Open menu"} aria-expanded={isOpen}>
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
+              {isOpen ? <X size={20} /> : <MoreVertical size={20} />}
             </button>
           </div>
         </div>
       </nav>
 
+      {/* Mobile slide-in drawer */}
       {isOpen && (
-        <div className="nav__drawer">
-          <div className="nav__drawer-label">
-            <div className="nav__drawer-label-line" />
-            <span className="nav__drawer-label-text">Navigation</span>
+        <>
+          <div className="nav__overlay" onClick={closeMenu} />
+          <div className="nav__drawer">
+            <div className="nav__drawer-header">
+              <div className="nav__drawer-logo">
+                <img src="/Malaxmi-Final-Logo-1.png" alt="Mahalaxmi Infra Logo" width={44} height={44} />
+                <div>
+                  <div className="nav__drawer-logo-name">Mahalaxmi Infra</div>
+                  <div className="nav__drawer-logo-sub">RERA Approved</div>
+                </div>
+              </div>
+              <button onClick={closeMenu} className="nav__drawer-close" aria-label="Close menu">
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="nav__drawer-links">
+              {navLinks.map(link => (
+                <a key={link.href} href={link.href} className="nav__drawer-link" onClick={closeMenu}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+            
+            <div className="nav__drawer-footer">
+              <a href="#contact" className="nav__drawer-cta" onClick={closeMenu}>
+                Schedule a Site Visit
+              </a>
+              <div className="nav__drawer-badges">
+                <span className="nav__drawer-badge">NMRDA Approved</span>
+                <span className="nav__drawer-badge">RERA Certified</span>
+              </div>
+            </div>
           </div>
-          <div className="nav__drawer-links">
-            {navLinks.map(link => (
-              <a key={link.href} href={link.href} className="nav__drawer-link" onClick={closeMenu}>{link.label}</a>
-            ))}
-          </div>
-          <a href="#contact" className="nav__drawer-cta" onClick={closeMenu}>Get Started</a>
-          {/* <p className="nav__drawer-rera">MAHA RERA NO. A50500044725</p> */}
-        </div>
+        </>
       )}
     </>
   )

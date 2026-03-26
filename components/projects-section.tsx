@@ -48,14 +48,22 @@ type TabValue = (typeof TABS)[number]["value"]
 const waUrl = (title: string, location: string) =>
   `https://wa.me/919970501128?text=${encodeURIComponent(`Hi, I'm interested in "${title}"${location ? ` at ${location}` : ""}. Could you share more details?`)}`
 
-const StatusBadge = memo(({ status }: { status: string }) => (
-  <div className={`status-badge status-badge--${status}`}>
-    <span className={`status-badge__dot status-badge__dot--${status}`} />
-    <span className={`status-badge__label status-badge__label--${status}`}>
-      {status.charAt(0).toUpperCase() + status.slice(1)}
-    </span>
-  </div>
-))
+const StatusBadge = memo(({ status }: { status: string }) => {
+  const colors: Record<string, { bg: string; dot: string; text: string }> = {
+    ongoing:   { bg: "rgba(201, 134, 43, 0.1)",  dot: "#C9862b", text: "#a86a1a" },
+    completed: { bg: "rgba(34, 197, 94, 0.1)",   dot: "#22c55e", text: "#15803d" },
+    upcoming:  { bg: "rgba(59, 130, 246, 0.1)",  dot: "#3b82f6", text: "#1d4ed8" },
+  }
+  const c = colors[status] || colors.ongoing
+  return (
+    <div className="status-badge-v2" style={{ background: c.bg, borderColor: `${c.dot}30` }}>
+      <span className="status-badge-v2__dot" style={{ background: c.dot }} />
+      <span className="status-badge-v2__label" style={{ color: c.text }}>
+        {status.charAt(0).toUpperCase() + status.slice(1)}
+      </span>
+    </div>
+  )
+})
 StatusBadge.displayName = "StatusBadge"
 
 const HeroCard = memo(({ project }: { project: Project }) => {
