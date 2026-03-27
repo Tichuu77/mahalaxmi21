@@ -1,20 +1,21 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Poppins, Inter } from "next/font/google"
+import { Poppins, Cormorant_Garamond } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-heading",
+  variable: "--font-sans",
   display: "swap",
 })
 
-const inter = Inter({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-sans",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-heading",
   display: "swap",
 })
 
@@ -81,40 +82,14 @@ export const metadata: Metadata = {
     "Mahalaxmi Infra",
     "Mahalaxmi Infra Nagpur",
     "Mahalaxmi Infra plots",
-    "Mahalaxmi Nagar Nagpur",
-    "Mahalaxmi Nagar 45",
-    "Mahalaxmi Nagar 49 Nagpur",
-    "Mahalaxmi Nagar near AIIMS Nagpur",
+    "NMRDA approved plots Nagpur",
+    "RERA approved plots Nagpur",
     "plots for sale in MIHAN Nagpur",
-    "MIHAN Nagpur plots for sale",
     "residential plots near AIIMS Nagpur",
     "plots in Wardha Road Nagpur",
-    "Property in Hingna Nagpur",
-    "Mahalaxmi Infra Sumthana",
-    "Nagpur property",
     "Nagpur real estate",
-    "Nagpur plots for sale",
-    "Plot for sale in Nagpur",
-    "Buy plot in Nagpur",
-    "Residential plots in Nagpur",
-    "NMRDA RL approved plots Nagpur",
-    "RERA approved plots Nagpur",
-    "Government sanctioned layout Nagpur",
-    "Clear title plots in Nagpur",
-    "Bank loan available plots Nagpur",
-    "Affordable plots in Nagpur",
-    "Best plots in Nagpur",
-    "Ready to register plots Nagpur",
-    "Nagpur flats for sale",
-    "2 BHK flats in Nagpur",
-    "Affordable flats in Nagpur",
-    "House for sale in Nagpur",
-    "House for sale in Manish Nagar Nagpur",
-    "Commercial property in Nagpur",
-    "Plots in Kamptee Nagpur",
-    "Kamptee Road property",
-    "Investment property in Nagpur",
-    "Budget homes Nagpur",
+    "buy plot in Nagpur",
+    "affordable plots Nagpur",
   ],
 }
 
@@ -126,12 +101,8 @@ const structuredData = {
       "@id": `${BASE_URL}/#organization`,
       name: "Mahalaxmi Infra",
       url: BASE_URL,
-      logo: {
-        "@type": "ImageObject",
-        url: `${BASE_URL}/Mahalaxmi Infra new Logo.png`,
-      },
-      description:
-        "NMRDA sanctioned and RERA approved residential plots in Nagpur with 70+ completed projects and 17,000+ happy families.",
+      logo: { "@type": "ImageObject", url: `${BASE_URL}/Mahalaxmi Infra new Logo.png` },
+      description: "NMRDA sanctioned and RERA approved residential plots in Nagpur with 70+ completed projects.",
       telephone: "+919970501128",
       email: "manoj.mungale@gmail.com",
       address: {
@@ -140,12 +111,7 @@ const structuredData = {
         addressRegion: "Maharashtra",
         addressCountry: "IN",
       },
-      areaServed: {
-        "@type": "City",
-        name: "Nagpur",
-      },
-      sameAs: [],
-      numberOfEmployees: { "@type": "QuantitativeValue", value: 50 },
+      areaServed: { "@type": "City", name: "Nagpur" },
       foundingDate: "2012",
     },
     {
@@ -154,25 +120,6 @@ const structuredData = {
       url: BASE_URL,
       name: "Mahalaxmi Infra",
       publisher: { "@id": `${BASE_URL}/#organization` },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: { "@type": "EntryPoint", urlTemplate: `${BASE_URL}/?q={search_term_string}` },
-        "query-input": "required name=search_term_string",
-      },
-    },
-    {
-      "@type": "WebPage",
-      "@id": `${BASE_URL}/#webpage`,
-      url: BASE_URL,
-      name: "Mahalaxmi Infra – NMRDA & RERA Approved Plots in Nagpur",
-      isPartOf: { "@id": `${BASE_URL}/#website` },
-      about: { "@id": `${BASE_URL}/#organization` },
-      description:
-        "Buy NMRDA sanctioned, RERA approved residential plots in Nagpur starting ₹22 Lakh.",
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: BASE_URL }],
-      },
     },
     {
       "@type": "FAQPage",
@@ -182,7 +129,7 @@ const structuredData = {
           name: "What types of properties does Mahalaxmi Infra offer?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Mahalaxmi Infra offers NMRDA sanctioned and RERA approved residential and commercial plots in prime locations across Nagpur, including Besa, Beltarodi, Shankarpur, Wardha Road, and more.",
+            text: "Mahalaxmi Infra offers NMRDA sanctioned and RERA approved residential and commercial plots in prime locations across Nagpur.",
           },
         },
         {
@@ -190,7 +137,7 @@ const structuredData = {
           name: "What is the starting price for plots?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Plots start from ₹22 Lakh onwards, depending on location and size. Flexible payment plans and bank loan facilities are available.",
+            text: "Plots start from ₹22 Lakh onwards, depending on location and size.",
           },
         },
         {
@@ -198,15 +145,7 @@ const structuredData = {
           name: "Are Mahalaxmi Infra projects RERA approved?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes, all projects are 100% RERA approved (MAHA RERA NO. A50500044725) and NMRDA sanctioned with complete legal compliance.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Is bank loan available for Mahalaxmi Infra plots?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes, bank loans up to 90% financing are available. Our team helps you choose the best financing option.",
+            text: "Yes, all projects are 100% RERA approved (MAHA RERA NO. A50500044725) and NMRDA sanctioned.",
           },
         },
       ],
@@ -216,11 +155,9 @@ const structuredData = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en-IN" className={`${poppins.variable} ${cormorant.variable}`}>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -235,16 +172,19 @@ export default function RootLayout({
         <meta name="geo.placename" content="Nagpur" />
         <meta name="geo.position" content="21.1458;79.0882" />
         <meta name="ICBM" content="21.1458, 79.0882" />
+        <meta name="theme-color" content="#0d1a16" />
       </head>
-      <body className={`${poppins.variable} ${inter.variable} font-sans antialiased`}>
+      <body className="font-sans antialiased">
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TCG77MQD"
-            height="0"
-            width="0"
+            height="0" width="0"
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded">
+          Skip to main content
+        </a>
         {children}
         <Analytics />
       </body>

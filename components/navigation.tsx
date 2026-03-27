@@ -8,18 +8,18 @@ const navLinks = [
   { href: "#amenities",    label: "Amenities"    },
   { href: "#projects",     label: "Projects"     },
   { href: "#gallery",      label: "Gallery"      },
-  { href: "#user-guide",   label: "User Guide"   },
+  { href: "#user-guide",   label: "How It Works" },
   { href: "#news",         label: "News"         },
   { href: "#testimonials", label: "Testimonials" },
   { href: "#contact",      label: "Contact"      },
 ]
 
 const DesktopLinks = memo(() => (
-  <div className="nav__links">
+  <nav className="nav__links" aria-label="Desktop navigation">
     {navLinks.map(link => (
       <a key={link.href} href={link.href} className="nav__link">{link.label}</a>
     ))}
-  </div>
+  </nav>
 ))
 DesktopLinks.displayName = "DesktopLinks"
 
@@ -38,39 +38,77 @@ export function Navigation() {
 
   return (
     <>
-      <nav role="navigation" aria-label="Main navigation" className={`nav ${scrolled ? "nav--scrolled" : "nav--top"}`}>
-        <div className="nav__inner">
-          <a href="#" aria-label="Mahalaxmi Infra – Home" className="nav__logo">
-            <img src="/Malaxmi-Final-Logo-1.png" alt="Mahalaxmi Infra Logo" width={72} height={72} className="nav__logo-img" fetchPriority="high" decoding="sync" />
-            <div>
-              <div className="nav__logo-name">Mahalaxmi Infra</div>
+      <header role="banner">
+        <nav
+          role="navigation"
+          aria-label="Main navigation"
+          className={`nav ${scrolled ? "nav--scrolled" : "nav--top"}`}
+        >
+          <div className="nav__inner">
+            <a href="#" aria-label="Mahalaxmi Infra – Home" className="nav__logo">
+              <img
+                src="/Malaxmi-Final-Logo-1.png"
+                alt="Mahalaxmi Infra Logo"
+                width={46}
+                height={46}
+                className="nav__logo-img"
+                fetchPriority="high"
+                decoding="sync"
+              />
+              <div>
+                <div className="nav__logo-name">Mahalaxmi Infra</div>
+                <div className="nav__logo-sub">RERA Approved</div>
+              </div>
+            </a>
+
+            <DesktopLinks />
+
+            <div className="nav__cta">
+              <a href="#contact" className="nav__cta-btn">Get Started</a>
             </div>
-          </a>
-          <DesktopLinks />
-          <div className="nav__cta">
-            <a href="#contact" className="nav__cta-btn">Get Started</a>
+
+            <div className="nav__toggle">
+              <button
+                onClick={toggle}
+                className="nav__toggle-btn"
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
+              >
+                {isOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+              </button>
+            </div>
           </div>
-          <div className="nav__toggle">
-            <button onClick={toggle} className="nav__toggle-btn" aria-label={isOpen ? "Close menu" : "Open menu"} aria-expanded={isOpen}>
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
       {isOpen && (
-        <div className="nav__drawer">
+        <div
+          id="mobile-menu"
+          className="nav__drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+        >
           <div className="nav__drawer-label">
             <div className="nav__drawer-label-line" />
             <span className="nav__drawer-label-text">Navigation</span>
           </div>
-          <div className="nav__drawer-links">
+          <nav className="nav__drawer-links" aria-label="Mobile navigation">
             {navLinks.map(link => (
-              <a key={link.href} href={link.href} className="nav__drawer-link" onClick={closeMenu}>{link.label}</a>
+              <a
+                key={link.href}
+                href={link.href}
+                className="nav__drawer-link"
+                onClick={closeMenu}
+              >
+                {link.label}
+              </a>
             ))}
-          </div>
-          <a href="#contact" className="nav__drawer-cta" onClick={closeMenu}>Get Started</a>
-          {/* <p className="nav__drawer-rera">MAHA RERA NO. A50500044725</p> */}
+          </nav>
+          <a href="#contact" className="nav__drawer-cta" onClick={closeMenu}>
+            Get Started
+          </a>
         </div>
       )}
     </>
