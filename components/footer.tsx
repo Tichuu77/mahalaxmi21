@@ -16,8 +16,8 @@ const navLinks = [
 ]
 
 const contacts = [
-  { icon: Phone, href: "tel:+919970501128",              label: "+91 9970501128"           },
-  { icon: Mail,  href: "mailto:manoj.mungale@gmail.com", label: "manoj.mungale@gmail.com" },
+  { icon: Phone, href: "tel:+919326709970",              label: "+91 9326709970"           },
+  { icon: Mail,  href: "mailto:kuwarb38@gmail.com", label: "kuwarb38@gmail.com" },
 ]
 
 const certs = ["NMRDA Approved", "RERA Certified", "ISO Certified"]
@@ -53,6 +53,7 @@ export const Footer = memo(() => (
           </p>
           <div className="gold-badge">
             <div className="gold-badge__dot" aria-hidden="true" />
+            <span className="gold-badge__num">A50500037880</span>
           </div>
         </div>
 
@@ -102,7 +103,7 @@ export const Footer = memo(() => (
             <div className="footer__col-line" aria-hidden="true" />
             <h3 className="footer__col-label">Contact</h3>
           </div>
-          <p className="footer__contact-name">Manoj Mungale</p>
+          <p className="footer__contact-name">Kuwar Bhairam</p>
           <address style={{ fontStyle: "normal" }}>
             <ul className="footer__contact-list">
               {contacts.map(c => {

@@ -11,38 +11,25 @@ type Project = {
   location: string
   status: "ongoing" | "completed" | "upcoming"
 }
-const projects:  Project[] = {
-  ongoing: [
-    { id: 2,  title: "Mahalaxmi Nagar-31",    image: "/ongoingProject8.webp",   description: "Ready to move residential layout on Besa-Pipla Road, opposite Zudio & Croma. Prime location with up to 90% bank finance.",                                                               location: "MOUZA - BESA",                      status: "ongoing"   },
-    { id: 3,  title: "Mahalaxmi Nagar-39",    image: "/ongoingProject5.webp",   description: "New project on Katol Road, Fetri (Chicholi), touching Outer Ring Road. Fully developed NMRDA & RL sanctioned.",                                                                           location: "MOUZA - FETRI",                     status: "ongoing"   },
-    { id: 4,  title: "Mahalaxmi Nagar-41",    image: "/ongoingProject3.webp",   description: "Premium layout near Samruddhi Mahamarg with clubhouse & swimming pool. NMRDA + RL approved. Up to 90% finance.",                                                                           location: "MOUZA - GOMGAON",                   status: "ongoing"   },
-    { id: 5,  title: "Mahalaxmi Nagar - 42",  image: "/ongoingProject2.webp",   description: "Well-connected plots near Jamtha, Wardha Road. NMRDA & RL sanctioned with excellent amenities.",                                                                                           location: "MOUZA - JAMTHA",                    status: "ongoing"   },
-    { id: 6,  title: "Mahalaxmi Nagar - 43",  image: "/project_43.jpg",         description: "Ready-to-move plots behind Royal Gondwana School, Shankarpur. Fully developed with 90% finance.",     
-                                                                                         location: "MOUZA - SHANKARPUR",                status: "ongoing"   },
-     {
-      id: 7,
-      title: "Mahalaxmi Nagar - 44",
-      image: "/M-44.jpg",
-      description: "Mahalaxmi Developers launched the project Mahalaxmi Nagar 44. The layout is NIT / NMRDA sanctioned with RL. Bank finance is available 75% to 80% from any nationalized bank.",
-      location: "MOUZA - TARODI",
-      status: "ongoing"
-    },
-    { id: 8,  title: "Mahalaxmi Nagar - 45",  image: "/project_M-45.jpg",       description: "Premium plotted development near Samruddhi Mahamarg, close to AIIMS, IIM, MIHAN & D-Mart.",                                                                                               location: "MOUZA - SUMTHANA",                  status: "ongoing"   },
-    { id: 9,  title: "Mahalaxmi Nagar - 46",  image: "/project_M-46.jpg",  description: "Premium plotted development near Samruddhi Mahamarg, close to AIIMS, IIM, MIHAN & D-Mart.",                                                                                               location: "MOUZA - SUMTHANA",                  status: "ongoing"   },
-    { id: 10,  title: "Tattva Apas",           image: "/tatava apas.webp",       description: "Tattva Apas offers contemporary living with 100+ meticulously crafted apartments. Featuring landscaped gardens, play areas, and fitness centers, it fosters a vibrant social atmosphere.", location: "MOUZA - BELTARODI",                 status: "ongoing"   },
-    { id: 11, title: "Mahalaxmi Nagar - 47",  image: "/ongoingProject12.jpg",   description: "New launch behind Haldiram & AM Cinema on Koradi Road. NMRDA & RL approved with 90% finance.",                                                                                            location: "KORADI ROAD (Behind Haldiram)",     status: "ongoing"   },
-  ],
-  completed: [
-    { id: 12, title: "Mahalaxmi Nagar - 37",  image: "/completedProject1.webp", description: "NMRDA & RL sanctioned layout in Kotewada. 75-80% bank loan approved.",   location: "MOUZA - KOTEWADA", status: "completed" },
-    { id: 13, title: "Mahalaxmi Nagar - 35",  image: "/completedProject2.webp", description: "Fully delivered premium layout with all amenities completed.",            location: "MOUZA - KOTEWADA", status: "completed" },
-    { id: 14, title: "Mahalaxmi Nagar - 34",  image: "/completedProject3.webp", description: "Successfully delivered project with high appreciation value.",            location: "MOUZA - BAHADURA", status: "completed" },
-  ],
-  upcoming: [
-    { id: 15, title: "Mahalaxmi Nagar - 48",  image: "/plotDef.avif", description: "", location: "", status: "upcoming" },
-    { id: 16, title: "Mahalaxmi Nagar - 49",  image: "/plotDef.avif", description: "", location: "", status: "upcoming" },
-    { id: 17, title: "Mahalaxmi Nagar - 50",  image: "/plotDef.avif", description: "", location: "", status: "upcoming" },
-  ],
-}
+
+const allProjects: Project[] = [
+  { id: 2,  title: "Mahalaxmi Nagar-31",    image: "/ongoingProject8.webp",   description: "Ready to move residential layout on Besa-Pipla Road, opposite Zudio & Croma. Prime location with up to 90% bank finance.",                                                               location: "MOUZA - BESA",                  status: "ongoing"   },
+  { id: 3,  title: "Mahalaxmi Nagar-39",    image: "/ongoingProject5.webp",   description: "New project on Katol Road, Fetri (Chicholi), touching Outer Ring Road. Fully developed NMRDA & RL sanctioned.",                                                                           location: "MOUZA - FETRI",                 status: "ongoing"   },
+  { id: 4,  title: "Mahalaxmi Nagar-41",    image: "/ongoingProject3.webp",   description: "Premium layout near Samruddhi Mahamarg with clubhouse & swimming pool. NMRDA + RL approved. Up to 90% finance.",                                                                           location: "MOUZA - GOMGAON",               status: "ongoing"   },
+  { id: 5,  title: "Mahalaxmi Nagar - 42",  image: "/ongoingProject2.webp",   description: "Well-connected plots near Jamtha, Wardha Road. NMRDA & RL sanctioned with excellent amenities.",                                                                                           location: "MOUZA - JAMTHA",                status: "ongoing"   },
+  { id: 6,  title: "Mahalaxmi Nagar - 43",  image: "/project_43.jpg",         description: "Ready-to-move plots behind Royal Gondwana School, Shankarpur. Fully developed with 90% finance.",                                                                                           location: "MOUZA - SHANKARPUR",            status: "ongoing"   },
+  { id: 7,  title: "Mahalaxmi Nagar - 44",  image: "/M-44.jpg",               description: "Mahalaxmi Developers launched the project Mahalaxmi Nagar 44. The layout is NIT / NMRDA sanctioned with RL. Bank finance is available 75% to 80% from any nationalized bank.",            location: "MOUZA - TARODI",                status: "ongoing"   },
+  { id: 8,  title: "Mahalaxmi Nagar - 45",  image: "/project_M-45.jpg",       description: "Premium plotted development near Samruddhi Mahamarg, close to AIIMS, IIM, MIHAN & D-Mart.",                                                                                               location: "MOUZA - SUMTHANA",              status: "ongoing"   },
+  { id: 9,  title: "Mahalaxmi Nagar - 46",  image: "/project_M-46.jpg",       description: "Premium plotted development near Samruddhi Mahamarg, close to AIIMS, IIM, MIHAN & D-Mart.",                                                                                               location: "MOUZA - SUMTHANA",              status: "ongoing"   },
+  { id: 10, title: "Tattva Apas",           image: "/tatava apas.webp",        description: "Tattva Apas offers contemporary living with 100+ meticulously crafted apartments. Featuring landscaped gardens, play areas, and fitness centers, it fosters a vibrant social atmosphere.", location: "MOUZA - BELTARODI",             status: "ongoing"   },
+  { id: 11, title: "Mahalaxmi Nagar - 47",  image: "/ongoingProject12.jpg",   description: "New launch behind Haldiram & AM Cinema on Koradi Road. NMRDA & RL approved with 90% finance.",                                                                                            location: "KORADI ROAD (Behind Haldiram)", status: "ongoing"   },
+  { id: 12, title: "Mahalaxmi Nagar - 37",  image: "/completedProject1.webp", description: "NMRDA & RL sanctioned layout in Kotewada. 75-80% bank loan approved.",                                                                                                                     location: "MOUZA - KOTEWADA",              status: "completed" },
+  { id: 13, title: "Mahalaxmi Nagar - 35",  image: "/completedProject2.webp", description: "Fully delivered premium layout with all amenities completed.",                                                                                                                              location: "MOUZA - KOTEWADA",              status: "completed" },
+  { id: 14, title: "Mahalaxmi Nagar - 34",  image: "/completedProject3.webp", description: "Successfully delivered project with high appreciation value.",                                                                                                                              location: "MOUZA - BAHADURA",              status: "completed" },
+  { id: 15, title: "Mahalaxmi Nagar - 48",  image: "/plotDef.avif",           description: "",                                                                                                                                                                                          location: "",                              status: "upcoming"  },
+  { id: 16, title: "Mahalaxmi Nagar - 49",  image: "/plotDef.avif",           description: "",                                                                                                                                                                                          location: "",                              status: "upcoming"  },
+  { id: 17, title: "Mahalaxmi Nagar - 50",  image: "/plotDef.avif",           description: "",                                                                                                                                                                                          location: "",                              status: "upcoming"  },
+]
 
 const TABS = [
   { label: "All",       value: "all"       },
@@ -54,7 +41,7 @@ const TABS = [
 type TabValue = typeof TABS[number]["value"]
 
 const waUrl = (title: string, location: string) =>
-  `https://wa.me/919970501128?text=${encodeURIComponent(`Hi, I'm interested in "${title}"${location ? ` at ${location}` : ""}. Could you share more details?`)}`
+  `https://wa.me/919326709970?text=${encodeURIComponent(`Hi, I'm interested in "${title}"${location ? ` at ${location}` : ""}. Could you share more details?`)}`
 
 /* ── Status Badge ── */
 const StatusBadge = memo(({ status }: { status: Project["status"] }) => (
@@ -89,7 +76,6 @@ const HeroCard = memo(({ project }: { project: Project }) => {
           <div className="proj-hero__status">
             <StatusBadge status={project.status} />
           </div>
-          {/* Mobile title */}
           <div className="proj-hero__mob-title">
             <span className="proj-hero__mob-title-eyebrow">Featured Project</span>
             <h3 className="proj-hero__mob-title-h3">{project.title}</h3>
@@ -97,7 +83,6 @@ const HeroCard = memo(({ project }: { project: Project }) => {
         </div>
 
         <div className="proj-hero__content">
-          {/* Desktop title */}
           <div className="proj-hero__desk-title">
             <div className="proj-hero__eyebrow section-eyebrow">
               <div className="section-eyebrow__line" />
@@ -228,11 +213,11 @@ export function ProjectsSection() {
   }, [])
 
   const filtered = useMemo(
-    () => activeTab === "all" ? projects : projects.filter(p => p.status === activeTab),
+    () => activeTab === "all" ? allProjects : allProjects.filter(p => p.status === activeTab),
     [activeTab]
   )
 
-  const [hero, ...rest] =  filtered
+  const [hero, ...rest] = filtered
   const vis = isVisible
 
   return (
@@ -246,7 +231,7 @@ export function ProjectsSection() {
         <div className="label-strip__line" />
         <span className="label-strip__text">Our Portfolio</span>
         <div className="label-strip__fill" />
-        <span className="label-strip__right">{projects.length} Projects</span>
+        <span className="label-strip__right">{allProjects.length} Projects</span>
       </div>
 
       <div className="section-inner">

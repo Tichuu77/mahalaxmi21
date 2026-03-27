@@ -215,15 +215,15 @@ export default function FaqSection() {
               <div className="faq__sidebar-cta-btns">
                 <button
                   className="faq__sidebar-cta-primary"
-                  onClick={() => window.open("https://wa.me/919970501128", "_blank")}
+                  onClick={() => window.open("https://wa.me/919326709970", "_blank")}
                   aria-label="Chat on WhatsApp"
                 >
                   WhatsApp
                 </button>
                 <a
-                  href="tel:+919322987615"
+                  href="tel:+919326709970"
                   className="faq__sidebar-cta-secondary"
-                  aria-label="Call us at +91 9322987615"
+                  aria-label="Call us at +91 9326709970"
                 >
                   <Phone size={11} aria-hidden="true" /> Call Us
                 </a>
