@@ -19,7 +19,7 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 })
 
-const BASE_URL = "https://www.kb.mahalaxmiinfra.com"
+const BASE_URL = "https://kb.mahalaxmiinfra.in"
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
       "70+ completed projects, 17,000+ happy families. Buy NMRDA sanctioned plots near MIHAN, Wardha Road & Hingna starting ₹22 Lakh. 100% RERA Approved.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/hero-bg.jpeg",
         width: 1200,
         height: 630,
         alt: "Mahalaxmi Infra – Premium Residential Plots in Nagpur",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "Mahalaxmi Infra – RERA Approved Plots in Nagpur",
     description:
       "Buy premium NMRDA sanctioned plots in Nagpur. 70+ projects, starting ₹22L. Bank loan available.",
-    images: ["/og-image.jpg"],
+    images: ["/hero-bg.jpeg"],
   },
   alternates: {
     canonical: BASE_URL,
