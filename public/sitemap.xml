@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mm.mahalaxmiinfra.in/</loc>
+    <loc>https://kb.mahalaxmiinfra.in/</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://mm.mahalaxmiinfra.in/#about</loc>
+    <loc>https://kb.mahalaxmiinfra.in/#about</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mm.mahalaxmiinfra.in/#projects</loc>
+    <loc>https://kb.mahalaxmiinfra.in/#projects</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mm.mahalaxmiinfra.in/#gallery</loc>
+    <loc>https://kb.mahalaxmiinfra.in/#gallery</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mm.mahalaxmiinfra.in/#amenities</loc>
+    <loc>https://kb.mahalaxmiinfra.in/#amenities</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mm.mahalaxmiinfra.in/#contact</loc>
+    <loc>https://kb.mahalaxmiinfra.in/#contact</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -43,7 +43,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mm.mahalaxmiinfra.in/#news</loc>
+    <loc>https://kb.mahalaxmiinfra.in/#news</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
