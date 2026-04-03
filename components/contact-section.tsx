@@ -127,7 +127,7 @@ export default function ContactSection() {
 
   const contacts = [
     { icon: Phone, label: "Call / WhatsApp", values: ["+91 9326709970"],                                      dark: true  },
-    { icon: Mail,  label: "Email",           values: ["manoj.kuwarb38@gmail.com"],                             dark: false },
+    { icon: Mail,  label: "Email",           values: ["kuwarb38@gmail.com"],                             dark: false },
     { icon: MapPin, label: "Office Address", values: ["Flat 103/104, Laxmivihar Apartment,", "Wardha Road, Somalwada, Nagpur 440025"], dark: false },
   ]
 
