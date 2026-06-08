@@ -1,116 +1,107 @@
 "use client"
 
-import { useState, useCallback, useEffect, memo } from "react"
-import { X, Menu } from "lucide-react"
+import { useState, useCallback, memo } from "react"
+import { Menu, X } from "lucide-react"
+import Link from "next/link"
 
+// Static data at module level
 const navLinks = [
   { href: "#about",        label: "About"        },
   { href: "#amenities",    label: "Amenities"    },
   { href: "#projects",     label: "Projects"     },
   { href: "#gallery",      label: "Gallery"      },
-  { href: "#user-guide",   label: "How It Works" },
+  { href: "#user-guide",   label: "User Guide"   },
   { href: "#news",         label: "News"         },
   { href: "#testimonials", label: "Testimonials" },
   { href: "#contact",      label: "Contact"      },
 ]
 
+// Desktop nav links — purely static, never re-renders
 const DesktopLinks = memo(() => (
-  <nav className="nav__links" aria-label="Desktop navigation">
-    {navLinks.map(link => (
-      <a key={link.href} href={link.href} className="nav__link">{link.label}</a>
+  <div className="hidden md:flex gap-8">
+    {navLinks.map((link) => (
+      <a
+        key={link.href}
+        href={link.href}
+        className="text-primary hover:text-amber-900 transition-colors text-sm font-medium"
+      >
+        {link.label}
+      </a>
     ))}
-  </nav>
+  </div>
 ))
 DesktopLinks.displayName = "DesktopLinks"
 
 export function Navigation() {
-  const [isOpen, setIsOpen]     = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40)
-    window.addEventListener("scroll", fn, { passive: true })
-    return () => window.removeEventListener("scroll", fn)
-  }, [])
-
-  const toggle    = useCallback(() => setIsOpen(p => !p), [])
+  const toggle   = useCallback(() => setIsOpen(p => !p), [])
   const closeMenu = useCallback(() => setIsOpen(false), [])
 
   return (
-    <>
-      <header role="banner">
-        <nav
-          role="navigation"
-          aria-label="Main navigation"
-          className={`nav ${scrolled ? "nav--scrolled" : "nav--top"}`}
-        >
-          <div className="nav__inner">
-            <a href="#" aria-label="Mahalaxmi Infra – Home" className="nav__logo">
-              <img
-                src="/Malaxmi-Final-Logo-1.png"
-                alt="Mahalaxmi Infra Logo"
-                width={46}
-                height={46}
-                className="nav__logo-img"
-                fetchPriority="high"
-                decoding="sync"
-              />
-              <div>
-                <div className="nav__logo-name">Mahalaxmi Infra</div>
-                <div className="nav__logo-sub">RERA Approved</div>
-              </div>
-            </a>
+    <nav className="fixed top-0 w-full bg-foreground backdrop-blur-md z-50 border-b border-amber-900/20">
+      <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
 
-            <DesktopLinks />
-
-            <div className="nav__cta">
-              <a href="#contact" className="nav__cta-btn">Get Started</a>
-            </div>
-
-            <div className="nav__toggle">
-              <button
-                onClick={toggle}
-                className="nav__toggle-btn"
-                aria-label={isOpen ? "Close menu" : "Open menu"}
-                aria-expanded={isOpen}
-                aria-controls="mobile-menu"
-              >
-                {isOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
-              </button>
-            </div>
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <img
+              src="/Mahalaxmi Infra new Logo.png"
+              alt="Mahalaxmi Infra Logo"
+              className="w-20 h-20"
+              fetchPriority="high"
+              decoding="sync"
+              width={80}
+              height={80}
+            />
+            <span
+              style={{ fontFamily: "var(--font-heading, Poppins, sans-serif)" }}
+              className="font-bold text-primary text-xl"
+            >
+              Mahalaxmi Infra
+            </span>
           </div>
-        </nav>
-      </header>
 
-      {isOpen && (
-        <div
-          id="mobile-menu"
-          className="nav__drawer"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Navigation menu"
-        >
-          <div className="nav__drawer-label">
-            <div className="nav__drawer-label-line" />
-            <span className="nav__drawer-label-text">Navigation</span>
-          </div>
-          <nav className="nav__drawer-links" aria-label="Mobile navigation">
-            {navLinks.map(link => (
+          {/* Desktop links */}
+          <DesktopLinks />
+
+          {/* Desktop CTA */}
+          <Link
+            href="#contact"
+            className="hidden md:block px-10 py-4 bg-primary hover:bg-primary/80 text-white rounded transition-colors font-medium text-sm"
+          >
+            Get Started
+          </Link>
+
+          {/* Mobile toggle */}
+          <button onClick={toggle} className="md:hidden text-primary" aria-label="Toggle menu">
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile menu */}
+        {isOpen && (
+          <div className="md:hidden pb-4 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
+            {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="nav__drawer-link"
                 onClick={closeMenu}
+                className="block px-4 py-2 text-primary hover:text-primary/80 hover:bg-white/5 rounded transition-colors"
               >
                 {link.label}
               </a>
             ))}
-          </nav>
-          <a href="#contact" className="nav__drawer-cta" onClick={closeMenu}>
-            Get Started
-          </a>
-        </div>
-      )}
-    </>
+            <Link
+              href="#contact"
+              className="bg-primary text-primary-foreground px-6 py-2 rounded-lg font-poppins font-medium text-center hover-lift transition-all duration-300 ease-out"
+              onClick={closeMenu}
+            >
+              Get Started
+            </Link>
+          </div>
+        )}
+      </div>
+    </nav>
   )
 }

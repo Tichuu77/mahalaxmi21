@@ -9,6 +9,7 @@ Crawl-delay: 1
 
 # Sitemaps
 Sitemap: https://kb.mahalaxmiinfra.in/sitemap.xml
+Sitemap: https://kb.mahalaxmiinfra.in/sitemap-pages.xml
 
 # Googlebot
 User-agent: Googlebot
