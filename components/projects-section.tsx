@@ -25,16 +25,19 @@ const projects = {
     { id: 8,  title: "Tattva Apas",           image: "/tatava apas.webp",       description: "Tattva Apas offers contemporary living with 100+ meticulously crafted apartments. Featuring landscaped gardens, play areas, and fitness centers, it fosters a vibrant social atmosphere.", location: "MOUZA - BELTARODI",                 status: "ongoing"   },
     { id: 9, title: "Mahalaxmi Nagar - 47",  image: "/project_M-47.jpg",       description: "New launch behind Haldiram & AM Cinema on Koradi Road. NMRDA & RL approved with 90% finance.",                                                                                            location: "KORADI ROAD (Behind Haldiram)",     status: "ongoing"   },
     { id: 10, title: "Mahalaxmi Nagar - 49",  image: "/project_M-49.jpeg",           description: "", location: "Mouza SONDAPAR MIHAN NEAR AIIMS AND NCI OUTER RING ROAD TOUCH", status: "ongoing" },
-    { id: 11, title: "Mahalaxmi Nagar - 52",  image: "/project_M-52.jpg",           description: "Mahalaxmi Developers launched the project Mahalaxmi Nagar 52. The layout is NIT / NMRDA sanctioned with 90% bank finance.", location: "MOUZA - DHAMNA HUDKESHAR ROAD NEAR OUTER RING ROAD", status: "ongoing" },
+     { id: 11, title: "Anaya Mahalaxmi Nagar - 51",  image: "/project_M-51.jpeg",           description: "Mahalaxmi Developers launched the project Anaya Mahalaxmi Nagar 51. The layout is NIT / NMRDA sanctioned with 90% bank finance.", location: "MOUZA - SUMTHANA MIHAN D-MART bACK SIDE NEAR OUTER RING ROAD SAMRUDDHI CIRCLE AIIMS NCI", status: "ongoing" },
+    { id: 12, title: "Mahalaxmi Nagar - 52",  image: "/project_M-52.jpg",           description: "Mahalaxmi Developers launched the project Mahalaxmi Nagar 52. The layout is NIT / NMRDA sanctioned with 90% bank finance.", location: "MOUZA - DHAMNA HUDKESHAR ROAD NEAR OUTER RING ROAD", status: "ongoing" },
+    { id: 13, title: "Mahalaxmi Nagar - 53",  image: "/plotDef.avif",           description: "", location: "MOUZA - SALAI (GODHANI)", status: "ongoing" },
+    { id: 14, title: "Mahalaxmi Nagar - 54",  image: "/plotDef.avif",           description: "", location: "MOUZA - BHILGAON, KAMPTEE ROAD", status: "ongoing" },
   ],
   completed: [
-    { id: 12, title: "Mahalaxmi Nagar - 37",  image: "/completedProject1.webp", description: "NMRDA & RL sanctioned layout in Kotewada. 75-80% bank loan approved.",                    location: "MOUZA - KOTEWADA", status: "completed" },
-    { id: 13, title: "Mahalaxmi Nagar - 35",  image: "/completedProject2.webp", description: "Fully delivered premium layout with all amenities completed.",                             location: "MOUZA - KOTEWADA", status: "completed" },
-    { id: 14, title: "Mahalaxmi Nagar - 34",  image: "/completedProject3.webp", description: "Successfully delivered project with high appreciation value.",                             location: "MOUZA - BAHADURA", status: "completed" },
+    { id: 15, title: "Mahalaxmi Nagar - 37",  image: "/completedProject1.webp", description: "NMRDA & RL sanctioned layout in Kotewada. 75-80% bank loan approved.",                    location: "MOUZA - KOTEWADA", status: "completed" },
+    { id: 16, title: "Mahalaxmi Nagar - 35",  image: "/completedProject2.webp", description: "Fully delivered premium layout with all amenities completed.",                             location: "MOUZA - KOTEWADA", status: "completed" },
+    { id: 17, title: "Mahalaxmi Nagar - 34",  image: "/completedProject3.webp", description: "Successfully delivered project with high appreciation value.",                             location: "MOUZA - BAHADURA", status: "completed" },
   ],
   upcoming: [
-    { id: 15, title: "Mahalaxmi Nagar - 48",  image: "/plotDef.avif",           description: "", location: "", status: "upcoming" },
-    { id: 16, title: "Mahalaxmi Nagar - 50",  image: "/plotDef.avif",           description: "", location: "", status: "upcoming" },
+    { id: 18, title: "Mahalaxmi Nagar - 48",  image: "/plotDef.avif",           description: "", location: "", status: "upcoming" },
+    { id: 19, title: "Mahalaxmi Nagar - 50",  image: "/plotDef.avif",           description: "", location: "", status: "upcoming" },
   ],
 }
 
