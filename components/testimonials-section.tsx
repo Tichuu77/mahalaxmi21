@@ -292,90 +292,25 @@ export function TestimonialsSection() {
         }
       `}</style>
 
-      {/* Left accent stripe */}
-      <div
-        className="absolute top-0 left-0 bottom-0 w-1"
-        style={{
-          background: "linear-gradient(to bottom, #C9862b, #30534A, #C9862b)",
-          boxShadow: "2px 0 12px rgba(201,134,43,0.2)",
-        }}
-      />
-
-      {/* Dot texture */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(rgba(48,83,74,0.07) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-
-      {/* Glow orbs */}
-      <div
-        className="absolute top-0 right-1/3 w-[500px] h-[400px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(201,134,43,0.09) 0%, transparent 70%)" }}
-      />
-      <div
-        className="absolute bottom-0 left-1/4 w-[400px] h-[300px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(48,83,74,0.07) 0%, transparent 70%)" }}
-      />
-
-      {/* Label strip */}
-      <div
-        className="flex items-center gap-4 pl-8 pr-8 sm:pl-16 sm:pr-12 lg:px-24 py-5 relative z-10"
-        style={{ borderBottom: "1px solid rgba(48,83,74,0.1)" }}
-      >
-        <span
-          className="text-[10px] tracking-[0.35em] uppercase font-bold"
-          style={{
-            color: "#C9862b",
-            fontFamily: "'Poppins', sans-serif",
-            textShadow: "0 0 12px rgba(201,134,43,0.35)",
-          }}
-        >
-          Testimonials
-        </span>
-        <span
-          className="flex-1 h-px"
-          style={{
-            background: "linear-gradient(to right, rgba(201,134,43,0.3), rgba(48,83,74,0.1) 60%, transparent)",
-          }}
-        />
-        <span className="testimonials-count-badge">17,000+ Happy Families</span>
-      </div>
-
-      <div className="max-w-[1400px] mx-auto pl-8 pr-8 sm:pl-16 sm:pr-12 lg:px-24 pt-12 pb-20 relative z-10">
+      {/* Main Content */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 py-10 sm:py-16 relative z-10">
 
         {/* Header */}
         <div
-          className={`mb-10 sm:mb-14 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`mb-8 sm:mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ willChange: "transform, opacity" }}
         >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#30534A]/8 text-[#30534A] text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3">
+            VERIFIED CLIENT REVIEWS
+          </div>
           <h2
-            className="font-bold leading-tight mb-3 text-[#0d0d0d] testimonials-heading-highlight"
-            style={{ fontFamily: "'Poppins', sans-serif", fontSize: "clamp(1.75rem, 4vw, 3.2rem)" }}
+            className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#0d0d0d] leading-tight mb-2"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
           >
-            Loved by{" "}
-            <span
-              style={{
-                color: "#30534A",
-                textShadow: "0 0 24px rgba(48,83,74,0.2)",
-              }}
-            >
-              Our
-            </span>{" "}
-            <span
-              style={{
-                WebkitTextStroke: "1.5px #C9862b",
-                color: "transparent",
-                filter: "drop-shadow(0 0 8px rgba(201,134,43,0.25))",
-              }}
-            >
-              Clients
-            </span>
+            Loved by <span className="text-[#30534A]">17,000+</span> <span className="text-[#C9862b]">Families</span>
           </h2>
-          <p className="text-sm leading-relaxed" style={{ color: "#888", fontFamily: "'Inter', sans-serif" }}>
-            Real stories from families who found their dream plots with Mahalaxmi Infra.
+          <p className="text-xs sm:text-base text-[#666]">
+            Real stories and feedback from families who invested in plots with Mahalaxmi Infra.
           </p>
         </div>
 

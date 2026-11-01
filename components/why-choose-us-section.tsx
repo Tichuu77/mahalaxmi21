@@ -1,464 +1,128 @@
 "use client"
 
-import { Check, Zap, Trophy, Users, Heart, Lightbulb } from "lucide-react"
-import { useEffect, useRef, useState, useCallback, memo } from "react"
+import { Check, ShieldCheck, TrendingUp, Sparkles, Phone, Award, Building, Compass, Lightbulb, MapPin, Landmark } from "lucide-react"
 
 const reasons = [
-  { icon: Trophy,    title: "NMRDA & RERA Approved",         description: "Every Mahalaxmi Infra plot is legally approved, NMRDA sanctioned, and RERA registered — protecting your investment 100%.",             stat: "100%", statLabel: "RERA Approved" },
-  { icon: Zap,       title: "Up to 90% Bank Finance",        description: "All Mahalaxmi Developer Nagpur projects are eligible for bank loans from SBI, HDFC, ICICI, and all major banks.",                      stat: "90%",  statLabel: "Finance"       },
-  { icon: Users,     title: "Prime Nagpur Locations",        description: "Plots near MIHAN, AIIMS, IIM, Samruddhi Mahamarg, Wardha Road, Besa — Nagpur's fastest-growing investment zones.",                     stat: "9+",   statLabel: "Locations"     },
-  { icon: Heart,     title: "Clear Title & Quick Possession",description: "Fully developed, ready-to-register plots with clear titles and zero legal complications.",                                             stat: "70+",  statLabel: "Projects"      },
-  { icon: Lightbulb, title: "Transparent Pricing",           description: "Mahalaxmi Infra price list starting from ₹22 Lakh. No hidden costs, no surprise charges — what you see is what you pay.",             stat: "₹22L", statLabel: "Starting From" },
-  { icon: Check,     title: "13 Years of Trust",             description: "Mahalaxmi Developer Pvt Ltd has a proven track record since 2011 — 70+ completed projects, 17,000+ satisfied families across Nagpur.", stat: "13+",  statLabel: "Years"         },
+  {
+    icon: Landmark,
+    title: "Samruddhi Expressway Junction",
+    description: "Located directly at Mouza Sumthana, touching the Samruddhi Mahamarg Corridor — Nagpur's highest appreciation investment belt.",
+    stat: "7 Mins",
+    statLabel: "To MIHAN SEZ",
+  },
+  {
+    icon: Award,
+    title: "100% NMRDA & MahaRERA Sanctioned",
+    description: "Fully approved under MahaRERA PP1190002602003 with sanctioned RL layout. Absolute safety and clear title guarantee.",
+    stat: "100%",
+    statLabel: "RL Clear Title",
+  },
+  {
+    icon: TrendingUp,
+    title: "Up to 90% Bank Finance Approved",
+    description: "Pre-approved by leading nationalized and private banks including SBI, HDFC, ICICI, and Bank of Baroda for smooth loan processing.",
+    stat: "90%",
+    statLabel: "Loan Available",
+  },
+  {
+    icon: Compass,
+    title: "Clear Title & Instant Registration",
+    description: "Free of any legal encumbrances with verified RL release. Buyers receive transparent paperwork, registry support, and clear demarcation.",
+    stat: "524",
+    statLabel: "Sanctioned Plots",
+  },
+  {
+    icon: Lightbulb,
+    title: "Attractive Entry from ₹35.4 Lakh*",
+    description: "Plot sizes from 1,130 to 5,000 sq.ft at competitive per-square-foot rates. Token booking starts from just ₹51,000.",
+    stat: "₹35.4L",
+    statLabel: "Starting Price",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Direct Developer Booking Desk",
+    description: "Direct booking with Mahalaxmi Infra — zero brokerage, guaranteed transparent pricing, and comprehensive end-to-end registry assistance.",
+    stat: "13+",
+    statLabel: "Years Infra Trust",
+  },
 ]
-
-const trackRecord = [
-  "13+ years industry experience",
-  "17,000+ satisfied families",
-  "70+ completed projects",
-]
-
-const support = [
-  "Free site visit assistance",
-  "Transparent documentation process",
-  "No hidden charges, clear titles",
-]
-
-const BAR_WIDTHS = reasons.map((_, i) => `${30 + i * 12}%`)
-
-const CheckItem = memo(({ text, gold }: { text: string; gold?: boolean }) => (
-  <li className="flex items-start gap-2.5">
-    <span
-      className="w-4 h-4 rounded-full flex items-center justify-center shrink-0 mt-0.5"
-      style={{
-        background: gold ? "rgba(201,134,43,0.14)" : "rgba(48,83,74,0.10)",
-        border: `1px solid ${gold ? "rgba(201,134,43,0.35)" : "rgba(48,83,74,0.28)"}`,
-      }}
-    >
-      <Check size={9} style={{ color: gold ? "#C9862b" : "#30534A" }} />
-    </span>
-    {/* Explicit dark text — never relying on a CSS class */}
-    <span
-      style={{
-        fontFamily: "'Inter', sans-serif",
-        fontSize: "13px",
-        fontWeight: 500,
-        color: "#1a2e28",
-        lineHeight: 1.55,
-      }}
-    >
-      {text}
-    </span>
-  </li>
-))
-CheckItem.displayName = "CheckItem"
-
-const DesktopReasonRow = memo(({ reason, index, isActive, onEnter, onLeave }: {
-  reason: typeof reasons[number]
-  index: number
-  isActive: boolean
-  onEnter: (i: number) => void
-  onLeave: () => void
-}) => {
-  const Icon = reason.icon
-  const handleEnter = useCallback(() => onEnter(index), [onEnter, index])
-
-  return (
-    <div
-      className="group grid grid-cols-[48px_1fr_auto] items-center gap-6 lg:gap-10 py-5 cursor-default transition-all duration-250"
-      style={{
-        borderBottom: "1px solid rgba(48,83,74,0.10)",
-        background: isActive ? "rgba(48,83,74,0.04)" : "transparent",
-        borderRadius: isActive ? "12px" : "0",
-        paddingLeft: isActive ? "12px" : "0",
-        paddingRight: isActive ? "12px" : "0",
-        marginLeft: isActive ? "-12px" : "0",
-        marginRight: isActive ? "-12px" : "0",
-        transition: "all 0.22s ease",
-      }}
-      onMouseEnter={handleEnter}
-      onMouseLeave={onLeave}
-    >
-      {/* Row number */}
-      <span
-        style={{
-          fontFamily: "'Poppins', sans-serif",
-          fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)",
-          fontWeight: 800,
-          tabularNums: "tabular-nums",
-          lineHeight: 1,
-          /* Orange when active, muted green when not */
-          color: isActive ? "#C9862b" : "rgba(48,83,74,0.22)",
-          transition: "color 0.2s",
-        }}
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
-
-      <div className="flex items-center gap-5">
-        {/* Icon bubble */}
-        <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-250"
-          style={{
-            background: isActive ? "#30534A" : "rgba(48,83,74,0.08)",
-            border: isActive ? "1px solid #30534A" : "1px solid rgba(48,83,74,0.15)",
-          }}
-        >
-          <Icon size={17} style={{ color: isActive ? "#C9862b" : "#30534A" }} />
-        </div>
-
-        <div>
-          {/* Row title — near-black always, orange when active */}
-          <h3
-            style={{
-              fontFamily: "'Poppins', sans-serif",
-              fontSize: "clamp(0.9rem, 1.1vw, 1.05rem)",
-              fontWeight: 700,
-              lineHeight: 1.3,
-              marginBottom: "3px",
-              color: isActive ? "#C9862b" : "#0d1f1a",
-              transition: "color 0.2s",
-            }}
-          >
-            {reason.title}
-          </h3>
-          {/* Description — dark, never washed out */}
-          <p
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "13px",
-              lineHeight: 1.65,
-              color: "#3d5a52",
-              margin: 0,
-            }}
-          >
-            {reason.description}
-          </p>
-        </div>
-      </div>
-
-      {/* Stat — right side */}
-      <div
-        className="shrink-0 text-right transition-all duration-250"
-        style={{ opacity: isActive ? 1 : 0.40 }}
-      >
-        <div
-          style={{
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: "clamp(1.4rem, 2vw, 1.9rem)",
-            fontWeight: 800,
-            lineHeight: 1,
-            color: "#C9862b",
-          }}
-        >
-          {reason.stat}
-        </div>
-        <div
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: "10.5px",
-            fontWeight: 600,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            color: "#30534A",
-            marginTop: "2px",
-          }}
-        >
-          {reason.statLabel}
-        </div>
-      </div>
-    </div>
-  )
-})
-DesktopReasonRow.displayName = "DesktopReasonRow"
-
-const MobileReasonCard = memo(({ reason, index }: { reason: typeof reasons[number]; index: number }) => {
-  const Icon = reason.icon
-  return (
-    <div
-      className="rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.98] transition-all duration-200"
-      style={{
-        background: "#ffffff",
-        border: "1.5px solid rgba(48,83,74,0.14)",
-        boxShadow: "0 2px 12px rgba(48,83,74,0.08)",
-      }}
-    >
-      <div className="flex items-center justify-between">
-        {/* Icon bubble */}
-        <div
-          className="w-9 h-9 rounded-xl flex items-center justify-center"
-          style={{
-            background: "rgba(48,83,74,0.09)",
-            border: "1px solid rgba(48,83,74,0.16)",
-          }}
-        >
-          <Icon size={15} style={{ color: "#30534A" }} />
-        </div>
-        {/* Stat */}
-        <div className="text-right">
-          <div
-            style={{
-              fontFamily: "'Poppins', sans-serif",
-              fontSize: "1.3rem",
-              fontWeight: 800,
-              lineHeight: 1,
-              color: "#C9862b",
-            }}
-          >
-            {reason.stat}
-          </div>
-          <div
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "10px",
-              fontWeight: 600,
-              letterSpacing: "0.07em",
-              textTransform: "uppercase",
-              color: "#30534A",
-              marginTop: "1px",
-            }}
-          >
-            {reason.statLabel}
-          </div>
-        </div>
-      </div>
-
-      <div>
-        {/* Card title — dark, readable */}
-        <h3
-          style={{
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: "13px",
-            fontWeight: 700,
-            lineHeight: 1.3,
-            color: "#0d1f1a",
-            marginBottom: "4px",
-          }}
-        >
-          {reason.title}
-        </h3>
-        {/* Card description */}
-        <p
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: "11.5px",
-            lineHeight: 1.65,
-            color: "#3d5a52",
-            margin: 0,
-          }}
-        >
-          {reason.description}
-        </p>
-      </div>
-
-      {/* Progress bar — orange */}
-      <div
-        className="h-[2px] rounded-full"
-        style={{ width: BAR_WIDTHS[index], background: "#C9862b", opacity: 0.55 }}
-      />
-    </div>
-  )
-})
-MobileReasonCard.displayName = "MobileReasonCard"
 
 export function WhyChooseUsSection() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [activeCard, setActiveCard] = useState<number | null>(null)
-  const sectionRef  = useRef<HTMLElement>(null)
-  const hasAnimated = useRef(false)
-
-  useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          setIsVisible(true)
-          hasAnimated.current = true
-        }
-      },
-      { threshold: 0.08 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
-  const handleEnter = useCallback((i: number) => setActiveCard(i), [])
-  const handleLeave = useCallback(() => setActiveCard(null), [])
-
   return (
     <section
-      ref={sectionRef}
       id="why-choose-us"
-      className="relative overflow-hidden"
-      style={{ background: "#f7f4ef" }}
+      className="why-choose-us-section relative overflow-hidden py-10 sm:py-16"
+      style={{ background: "#f8faf9" }}
     >
-      {/* Left accent stripe */}
-      <div
-        className="absolute top-0 left-0 bottom-0 w-1"
-        style={{ background: "linear-gradient(to bottom, #C9862b, #30534A, #C9862b)" }}
-      />
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 relative z-10">
 
-      {/* Dot texture */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(rgba(48,83,74,0.07) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-
-      {/* Warm glow */}
-      <div
-        className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(201,134,43,0.07) 0%, transparent 70%)" }}
-      />
-
-      {/* Label strip */}
-      <div
-        className="flex items-center gap-4 pl-8 pr-6 sm:pl-16 sm:pr-10 lg:px-24 py-5 relative z-10"
-        style={{ borderBottom: "1px solid rgba(48,83,74,0.12)" }}
-      >
-        <span
-          style={{
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: "10px",
-            letterSpacing: "0.35em",
-            textTransform: "uppercase",
-            fontWeight: 700,
-            color: "#C9862b",
-          }}
-        >
-          Why Mahalaxmi Infra
-        </span>
-        <span className="flex-1 h-px" style={{ background: "rgba(48,83,74,0.12)" }} />
-        <span
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: "10px",
-            letterSpacing: "0.20em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-            color: "rgba(48,83,74,0.45)",
-          }}
-        >
-          The Difference We Make
-        </span>
-      </div>
-
-      <div className="max-w-[1400px] mx-auto pl-8 pr-6 sm:pl-16 sm:pr-10 lg:px-24 pt-12 pb-20 relative z-10">
-
-        {/* ── Header + intro ── */}
-        <div
-          className={`grid lg:grid-cols-[1fr_1px_1fr] gap-8 lg:gap-0 mb-14 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
-          {/* Left — heading + sub */}
-          <div className="lg:pr-14">
-            <h2
-              style={{
-                fontFamily: "'Poppins', sans-serif",
-                fontSize: "clamp(1.75rem, 3.8vw, 3.2rem)",
-                fontWeight: 800,
-                lineHeight: 1.1,
-                marginBottom: "1rem",
-                color: "#0d1f1a",
-              }}
-            >
-              Why 17,000+ Families
-              <br />
-              {/* Dark green "Chose" */}
-              <span style={{ color: "#30534A" }}>Chose</span>{" "}
-              {/* Orange outlined "Mahalaxmi" */}
-              <span style={{ WebkitTextStroke: "1.5px #C9862b", color: "transparent" }}>Mahalaxmi</span>
-            </h2>
-            <p
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "clamp(0.875rem, 1.05vw, 1rem)",
-                lineHeight: 1.8,
-                /* Boosted from muted grey class — clearly readable */
-                color: "#3d5a52",
-                maxWidth: "400px",
-                margin: 0,
-              }}
-            >
-              From Mahalaxmi Infra site visit to possession — every step is handled with transparency and care.
-            </p>
+        {/* Section Header */}
+        <div className="max-w-3xl mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#30534A]/8 text-[#30534A] text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3">
+            <Sparkles size={13} className="text-[#C9862b]" />
+            INVESTMENT HIGHLIGHTS
           </div>
 
-          {/* Vertical divider */}
-          <div
-            className="hidden lg:block self-stretch"
-            style={{ background: "rgba(48,83,74,0.12)", width: "1px" }}
-          />
+          <h2
+            className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#0d0d0d] leading-tight mb-2 sm:mb-3"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            Why Invest in <span className="text-[#30534A]">Mahalaxmi Nagar 51</span> <span className="text-[#C9862b]">Anaya?</span>
+          </h2>
 
-          {/* Right — checklists */}
-          <div className="lg:pl-14 grid sm:grid-cols-2 gap-6">
-            <div>
-              {/* Section label */}
-              <h4
-                style={{
-                  fontFamily: "'Poppins', sans-serif",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: "#C9862b",
-                  marginBottom: "1rem",
-                }}
-              >
-                Track Record
-              </h4>
-              <ul className="space-y-3">
-                {trackRecord.map(item => <CheckItem key={item} text={item} gold />)}
-              </ul>
-            </div>
-            <div>
-              <h4
-                style={{
-                  fontFamily: "'Poppins', sans-serif",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: "#30534A",
-                  marginBottom: "1rem",
-                }}
-              >
-                Our Support
-              </h4>
-              <ul className="space-y-3">
-                {support.map(item => <CheckItem key={item} text={item} />)}
-              </ul>
-            </div>
-          </div>
+          <p className="text-xs sm:text-base text-[#555] leading-relaxed">
+            Plotted land along the Samruddhi Expressway corridor offers the strongest capital appreciation in Nagpur.
+            Here is why Anaya is Nagpur’s standout plotted community for builders and homeowners.
+          </p>
         </div>
 
-        {/* ── Reasons ── */}
-        <div
-          className={`transition-all duration-700 delay-150 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
-          {/* Desktop rows */}
-          <div className="hidden md:block divide-y divide-[rgba(48,83,74,0.08)]">
-            {reasons.map((r, i) => (
-              <DesktopReasonRow
+        {/* Reasons Grid: 2 Cards per Row on Mobile */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 mb-10 sm:mb-14">
+          {reasons.map((r) => {
+            const Icon = r.icon
+            return (
+              <div
                 key={r.title}
-                reason={r}
-                index={i}
-                isActive={activeCard === i}
-                onEnter={handleEnter}
-                onLeave={handleLeave}
-              />
-            ))}
-          </div>
+                className="group p-3 sm:p-6 rounded-2xl sm:rounded-3xl bg-white border border-[#30534A]/12 shadow-xs sm:shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2 sm:mb-4">
+                    <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center bg-[#30534A]/8 border border-[#30534A]/15 group-hover:scale-110 transition-transform duration-300">
+                      <Icon size={18} className="text-[#C9862b]" />
+                    </div>
 
-          {/* Mobile cards */}
-          <div className="grid grid-cols-2 gap-3 md:hidden">
-            {reasons.map((r, i) => (
-              <MobileReasonCard key={r.title} reason={r} index={i} />
-            ))}
-          </div>
+                    <div className="text-right">
+                      <span
+                        className="text-base sm:text-xl font-extrabold text-[#30534A] block leading-none"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        {r.stat}
+                      </span>
+                      <span className="text-[8px] sm:text-[10px] text-[#888] font-bold uppercase truncate block">{r.statLabel}</span>
+                    </div>
+                  </div>
+
+                  <h3
+                    className="text-xs sm:text-lg font-bold text-[#0d0d0d] mb-1 sm:mb-2 group-hover:text-[#30534A] transition-colors leading-snug line-clamp-1 sm:line-clamp-none"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {r.title}
+                  </h3>
+
+                  <p className="text-[11px] sm:text-sm text-[#666] leading-tight sm:leading-relaxed line-clamp-2 sm:line-clamp-none">
+                    {r.description}
+                  </p>
+                </div>
+
+                <div className="pt-2 sm:pt-4 mt-2 sm:mt-4 border-t border-[#30534A]/8 flex items-center gap-1 text-[9px] sm:text-xs font-semibold text-[#30534A]">
+                  <Check size={12} className="text-[#C9862b] shrink-0" />
+                  <span className="truncate">Developer Verified</span>
+                </div>
+              </div>
+            )
+          })}
         </div>
+
       </div>
     </section>
   )

@@ -369,7 +369,7 @@ const MobileCard = memo(({ article, isOpen, onToggle }: {
       }}
     />
 
-    <div className="relative overflow-hidden news-card-image mobile">
+    <div className="relative overflow-hidden h-28">
       <img
         src={article.image}
         alt={article.title}
@@ -382,15 +382,15 @@ const MobileCard = memo(({ article, isOpen, onToggle }: {
         style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 55%)",
+          background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 55%)",
           pointerEvents: "none",
         }}
       />
-      <div className="absolute bottom-3 left-3">
+      <div className="absolute bottom-2 left-2">
         <span
-          className="text-[10px] font-bold tracking-wider uppercase rounded-full px-2.5 py-1"
+          className="text-[8px] font-bold tracking-wider uppercase rounded-full px-2 py-0.5"
           style={{
-            background: "rgba(48,83,74,0.85)",
+            background: "rgba(48,83,74,0.9)",
             color: "#fff",
             backdropFilter: "blur(4px)",
             fontFamily: "'Poppins', sans-serif",
@@ -401,18 +401,18 @@ const MobileCard = memo(({ article, isOpen, onToggle }: {
       </div>
     </div>
 
-    <div className="p-4" style={{ position: "relative", zIndex: 2 }}>
+    <div className="p-2.5 sm:p-4 flex flex-col flex-1" style={{ position: "relative", zIndex: 2 }}>
       <h3
-        className="font-bold mb-2 leading-snug text-[#0d0d0d]"
-        style={{ fontFamily: "'Poppins', sans-serif", fontSize: "0.95rem" }}
+        className="font-bold mb-1 leading-snug text-[#0d0d0d] text-xs sm:text-sm line-clamp-1"
+        style={{ fontFamily: "'Poppins', sans-serif" }}
       >
         {article.title}
       </h3>
-      <p className="text-xs leading-relaxed mb-3" style={{ color: "#777", fontFamily: "'Inter', sans-serif" }}>
+      <p className="text-[10px] sm:text-xs leading-relaxed mb-2 text-[#777] line-clamp-2 flex-1" style={{ fontFamily: "'Inter', sans-serif" }}>
         {article.excerpt}
       </p>
       <ArticleMeta date={article.date} author={article.author} size="xs" />
-      <ExpandButton isOpen={isOpen} onClick={onToggle} size={12} />
+      <ExpandButton isOpen={isOpen} onClick={onToggle} size={11} />
       <ExpandedContent isOpen={isOpen} content={article.fullContent} />
     </div>
 
@@ -578,9 +578,9 @@ export default function NewsArticles() {
           </div>
         </div>
 
-        {/* Mobile layout */}
+        {/* Mobile layout: 2 Cards per Row */}
         <div
-          className={`lg:hidden space-y-4 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`lg:hidden grid grid-cols-2 gap-2.5 sm:gap-4 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
           style={{ willChange: "transform, opacity" }}
         >
           {newsArticles.map(article => (

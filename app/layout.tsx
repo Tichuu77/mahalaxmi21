@@ -18,8 +18,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Mahalaxmi Infra | NMRDA & RL Residential Plots in Nagpur",
-  description: "Discover premium NMRDA & RL approved residential plots by Mahalaxmi Infra. Invest in secure land projects with excellent connectivity and future growth.",
+  title: "Mahalaxmi Nagar 51 Anaya Nagpur | NMRDA & RERA Approved Villa Plots",
+  description: "Explore Mahalaxmi Nagar 51 (Anaya) by Mahalaxmi Infra — a 78-acre master-planned residential plotted township at Mouza Sumthana, touching Samruddhi Mahamarg & MIHAN Nagpur. MahaRERA: PP1190002602003. Contact Sales (+91 9326709970).",
   generator: "v0.app",
   icons: "/Mahalaxmi Infra new Logo.png",
   metadataBase: new URL('https://kb.mahalaxmiinfra.in'),
@@ -27,25 +27,25 @@ export const metadata: Metadata = {
     canonical: 'https://kb.mahalaxmiinfra.in'
   },
   openGraph: {
-    title: "Mahalaxmi Infra | NMRDA & RL Residential Plots",
-    description: "Premium residential plotted development with NMRDA & RL approval. Secure your future investment with Mahalaxmi Infra.",
+    title: "Mahalaxmi Nagar 51 Anaya | 78-Acre Villa Plotted Township Nagpur",
+    description: "Premium NMRDA sanctioned & MahaRERA approved (PP1190002602003) villa plots at Mouza Sumthana, Samruddhi Corridor, Nagpur. Contact Sales (+91 9326709970).",
     url: "https://kb.mahalaxmiinfra.in",
-    siteName: "Mahalaxmi Infra",
+    siteName: "Mahalaxmi Nagar 51 Anaya",
     type: "website",
     images: [
       {
-        url: "https://kb.mahalaxmiinfra.in/preview.jpg",
+        url: "https://kb.mahalaxmiinfra.in/project_M-51.png",
         width: 1200,
         height: 630,
-        alt: "Mahalaxmi Infra - Residential Plots"
+        alt: "Mahalaxmi Nagar 51 Anaya Master Plan Layout"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mahalaxmi Infra | Residential Plots",
-    description: "Premium plotted development with NMRDA & RL approval. Invest with Mahalaxmi Infra.",
-    images: ["https://kb.mahalaxmiinfra.in/preview.jpg"]
+    title: "Mahalaxmi Nagar 51 Anaya | Villa Plots Nagpur",
+    description: "78-Acre master-planned residential plotted township at Mouza Sumthana, Nagpur. MahaRERA: PP1190002602003.",
+    images: ["https://kb.mahalaxmiinfra.in/project_M-51.png"]
   },
   robots: {
     index: true,
@@ -59,105 +59,23 @@ export const metadata: Metadata = {
     }
   },
   keywords: [
-    // Brand Keywords
+    "Mahalaxmi Nagar 51",
+    "Mahalaxmi Nagar 51 Anaya",
+    "Mahalaxmi Nagar 51 Nagpur",
+    "Mahalaxmi Nagar 51 Sumthana",
+    "Anaya Mahalaxmi Nagar 51",
+    "Anaya plots Nagpur",
     "Mahalaxmi Infra",
     "Mahalaxmi Infra Nagpur",
-    "Mahalaxmi Infra projects",
-    "Mahalaxmi Infra projects Nagpur",
-    "Mahalaxmi Infra property",
-    "Mahalaxmi Infra plots",
-    "Mahalaxmi Infra plots for sale",
-    "Mahalaxmi Infra residential plots",
-    "Mahalaxmi Infra commercial property",
-    "Mahalaxmi Infra investment project",
-    "Mahalaxmi Infra new project",
-    "Mahalaxmi Infra price list",
-    "Mahalaxmi Infra booking",
-    "Mahalaxmi Infra contact number",
-    "Mahalaxmi Infra reviews",
-
-    // Mahalaxmi Nagar
-    "Mahalaxmi Nagar Nagpur",
-    "Mahalaxmi Nagar plots Nagpur",
-    "Mahalaxmi Nagar plots for sale",
-    "Mahalaxmi Nagar residential plots",
-    "Mahalaxmi Nagar 45",
-    "Mahalaxmi Nagar 49",
-    "Mahalaxmi Nagar 49 Nagpur",
-    "Mahalaxmi Nagar near AIIMS Nagpur",
-
-    // MIHAN / Wardha Road / Hingna
-    "plots for sale in MIHAN Nagpur",
-    "MIHAN Nagpur plots for sale",
-    "Plot for sale in MIHAN Nagpur",
-    "Mahalaxmi Infra MIHAN Nagpur",
-    "Mahalaxmi plots near MIHAN",
-    "residential plots near AIIMS Nagpur",
-    "Mahalaxmi Infra near AIIMS Nagpur",
-    "plots in Wardha Road Nagpur",
-    "Wardha Road Nagpur property",
-    "Flat for sale in Wardha Road Nagpur",
-    "Mahalaxmi Infra Wardha Road",
-    "Property in Hingna Nagpur",
-    "Hingna Nagpur plots",
-    "Property for sale in Hingna Nagpur",
-    "Mahalaxmi Infra Hingna Road",
-    "Mahalaxmi Infra Sumthana",
-    "Sumthana MIHAN plot",
-
-    // Nagpur General Property
-    "Nagpur property",
-    "Nagpur real estate",
-    "Nagpur property for sale",
-    "Property for sale in Nagpur",
-    "Buy property in Nagpur",
-    "Sell property in Nagpur",
-    "Nagpur property listings",
-    "Nagpur property agents",
-    "Nagpur real estate agents",
-    "Nagpur property for sale by owner",
-
-    // Plots Keywords
-    "Nagpur plots for sale",
-    "Plot for sale in Nagpur",
-    "Buy plot in Nagpur",
-    "Sell plot in Nagpur",
-    "Residential plots in Nagpur",
-    "Commercial plots in Nagpur",
-    "Investment plots in Nagpur",
-    "Affordable plots in Nagpur",
-    "Best plots in Nagpur",
-    "Ready to register plots Nagpur",
-    "NMRDA RL approved plots Nagpur",
-    "Government sanctioned layout Nagpur",
-    "Clear title plots in Nagpur",
-    "Clear title plot in Nagpur",
-    "Bank loan available plots Nagpur",
-
-    // Flats & Apartments
-    "Nagpur flats for sale",
-    "Flats for sale in Nagpur",
-    "Nagpur apartments",
-    "2 BHK flats in Nagpur",
-    "Affordable flats in Nagpur",
-    "Luxury flats in Nagpur",
-    "Budget flats in Nagpur",
-    "Ready to move flats Nagpur",
-    "Manish Nagar flats",
-    "House for sale in Nagpur",
-    "House for sale in Manish Nagar Nagpur",
-
-    // Commercial
-    "Commercial property in Nagpur",
-    "Commercial property for sale in Nagpur",
-
-    // Other Locations
-    "Plots in Kamptee Nagpur",
-    "Kamptee Road property",
-    "Best property deals in Nagpur",
-    "Investment property in Nagpur",
-    "Cheap property in Nagpur",
-    "Budget homes Nagpur"
+    "plots in Mouza Sumthana Nagpur",
+    "Samruddhi Mahamarg plots Nagpur",
+    "plots near MIHAN Nagpur",
+    "plots near AIIMS Nagpur",
+    "residential plots in Wardha Road Nagpur",
+    "PP1190002602003",
+    "A50500037880",
+    "NMRDA approved plots in Nagpur",
+    "villa plots in Nagpur"
   ]
 }
 
@@ -172,17 +90,19 @@ export default function RootLayout({
         {/* Google Tag Manager */}
         <script dangerouslySetInnerHTML={{ __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W35FHSFJ');` }} />
         
-        {/* Local Business Schema */}
+        {/* Local Business / Real Estate Project Schema */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "RealEstateAgent",
-          "name": "Mahalaxmi Infra",
+          "name": "Mahalaxmi Nagar 51 - Anaya (Mahalaxmi Infra)",
           "url": "https://kb.mahalaxmiinfra.in",
           "logo": "https://kb.mahalaxmiinfra.in/Malaxmi-Final-Logo.-2png.png",
-          "description": "Premium residential plotted development with NMRDA & RL approval in Nagpur",
+          "image": "https://kb.mahalaxmiinfra.in/project_M-51.png",
+          "description": "Mahalaxmi Nagar 51 Anaya is a 78-acre premier master-planned residential plotted development with NMRDA sanction and MahaRERA approval (PP1190002602003) at Mouza Sumthana, Nagpur.",
           "sameAs": [
             "https://www.facebook.com/share/18PdfPMute/",
-            "https://www.instagram.com/mahalaxmiinfra_ak"
+            "https://www.instagram.com/mahalaxmiinfra_ak",
+            "https://www.mahalaxmiinfra.in"
           ],
           "areaServed": "Nagpur, Maharashtra, India",
           "telephone": "+91-9326709970",
@@ -202,45 +122,23 @@ export default function RootLayout({
           "@context": "https://schema.org",
           "@type": "Organization",
           "name": "Mahalaxmi Infra",
-          "alternateName": "Mahalaxmi Infrastructure",
-          "url": "https://kb.mahalaxmiinfra.in",
+          "alternateName": "Mahalaxmi Developers",
+          "url": "https://www.mahalaxmiinfra.in",
           "logo": "https://kb.mahalaxmiinfra.in/Malaxmi-Final-Logo.-2png.png",
-          "description": "Premium NMRDA & RL approved residential plots in Nagpur",
-          "sameAs": [
-            "https://www.facebook.com/share/18PdfPMute/",
-            "https://www.instagram.com/mahalaxmiinfra_ak"
-          ],
+          "description": "Mahalaxmi Infra - A Tradition of Trust. Developing Mahalaxmi Nagar 51 Anaya at Mouza Sumthana, Nagpur.",
           "telephone": "+91-9326709970",
           "email": "kuwarb38@gmail.com",
           "contactPoint": {
             "@type": "ContactPoint",
-            "contactType": "Customer Service",
+            "contactType": "Sales Desk",
             "telephone": "+91-9326709970",
-            "email": "kuwarb38@gmail.com",
-            "contactOption": "TollFree"
+            "email": "kuwarb38@gmail.com"
           },
           "founder": "Kuwar Bhairam",
           "foundingDate": "2016"
         }) }} />
-
-        {/* Website Schema */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Mahalaxmi Infra",
-          "url": "https://kb.mahalaxmiinfra.in",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-              "@type": "EntryPoint",
-              "urlTemplate": "https://kb.mahalaxmiinfra.in/search?q={search_term_string}"
-            },
-            "query-input": "required name=search_term_string"
-          }
-        }) }} />
       </head>
       <body className={`${poppins.variable} ${inter.variable} font-sans antialiased`}>
-    
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-W35FHSFJ"

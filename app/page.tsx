@@ -7,39 +7,37 @@ import { Navigation } from "@/components/navigation"
 const AboutSection = dynamic(() => import("@/components/about-section").then(m => ({ default: m.AboutSection })))
 const AmenitiesSection = dynamic(() => import("@/components/amenities-section").then(m => ({ default: m.AmenitiesSection })))
 const ProjectsSection = dynamic(() => import("@/components/projects-section").then(m => ({ default: m.ProjectsSection })))
-const GallerySection = dynamic(() => import("@/components/gallery-section").then(m => ({ default: m.GallerySection })))
+const Locations = dynamic(() => import("@/components/locations").then(m => ({ default: m.LocationsSection })))
 const WhyChooseUsSection = dynamic(() => import("@/components/why-choose-us-section").then(m => ({ default: m.WhyChooseUsSection })))
-const UserGuideSection = dynamic(() => import("@/components/user-guide-section").then(m => ({ default: m.UserGuideSection })))
+const OtherProjectsSection = dynamic(() => import("@/components/other-projects-section").then(m => ({ default: m.OtherProjectsSection })))
+const GallerySection = dynamic(() => import("@/components/gallery-section").then(m => ({ default: m.GallerySection })))
 const TestimonialsSection = dynamic(() => import("@/components/testimonials-section").then(m => ({ default: m.TestimonialsSection })))
-const NewsArticles = dynamic(() => import("@/components/news-articals"))
 const FAQSection = dynamic(() => import("@/components/faq-section").then(m => ({ default: m.FAQSection })))
 const ContactSection = dynamic(() => import("@/components/contact-section"))
 const Footer = dynamic(() => import("@/components/footer").then(m => ({ default: m.Footer })))
 const CallButton = dynamic(() => import("@/components/call-button"))
 const WhatsappButton = dynamic(() => import("@/components/whatsapp-button"))
-const ContactPopup = dynamic(() => import("@/components/contact-popup"))
-const Locations = dynamic(() => import("@/components/locations").then(m => ({ default: m.LocationsSection })))
+const MobileAppBar = dynamic(() => import("@/components/mobile-app-bar").then(m => ({ default: m.MobileAppBar })))
+
 export default function Home() {
   return (
-    <main>
+    <main className="pb-16 md:pb-0 bg-[#ffffff] min-h-screen">
       <Navigation />
       <HeroSection />
-      <ContactSection sectionId="contact-intro" />
       <AboutSection />
-      <AmenitiesSection />
       <ProjectsSection />
-      <GallerySection />
-      <WhyChooseUsSection />
+      <AmenitiesSection />
       <Locations />
-      <UserGuideSection />
+      <WhyChooseUsSection />
+      <OtherProjectsSection />
+      <GallerySection />
       <TestimonialsSection />
-      <NewsArticles />
-      <ContactSection />
       <FAQSection />
+      <ContactSection />
+      <Footer />
       <CallButton />
       <WhatsappButton />
-      <ContactPopup />
-      <Footer />
+      <MobileAppBar />
     </main>
   )
 }

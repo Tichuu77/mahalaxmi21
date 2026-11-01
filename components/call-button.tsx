@@ -4,8 +4,8 @@ export default function CallButton() {
     const url = "tel:+919326709970"
 
     return (
-       <div className="fixed bottom-8 left-8 z-40">
-            <a href={url} className="relative group" aria-label="Call">
+       <div className="hidden md:block fixed bottom-8 left-8 z-40">
+            <a href={url} className="relative group" aria-label="Call Sales Desk - Mahalaxmi Nagar 51">
                 <div className="bg-[#30534A] absolute inset-0 w-16 h-16 rounded-full animate-ping opacity-75"/>
                 <div className="bg-[#30534A] relative w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110">
                     <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">

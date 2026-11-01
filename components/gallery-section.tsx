@@ -200,83 +200,47 @@ export function GallerySection() {
     <section
       ref={sectionRef}
       id="gallery"
-      className="gallery-section relative overflow-hidden"
+      className="gallery-section relative overflow-hidden py-10 sm:py-16"
+      style={{ background: "#fbfcfb" }}
     >
-      {/* Dot texture */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ backgroundImage: "radial-gradient(rgba(48,83,74,0.07) 1px, transparent 1px)", backgroundSize: "28px 28px" }}
-      />
-
-      {/* Glow accents */}
-      <div className="absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl pointer-events-none" style={{ background: "rgba(201,134,43,0.08)" }} />
-      <div className="absolute bottom-40 left-20 w-96 h-96 rounded-full blur-3xl pointer-events-none" style={{ background: "rgba(48,83,74,0.07)" }} />
-
-      {/* Label strip */}
-      <div
-        className="gallery-section-label-strip flex items-center gap-4 px-6 sm:px-16 lg:px-24 py-5 relative z-10"
-      >
-        <span className="gallery-section-label text-[10px] tracking-[0.35em] uppercase font-bold">Gallery</span>
-        <span className="gallery-section-label-divider flex-1" />
-        <span className="gallery-section-label-subtitle text-[10px] tracking-[0.2em] uppercase font-medium">{TOTAL} Photos</span>
-      </div>
-
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-16 lg:px-24 pt-8 pb-6 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 relative z-10">
 
         {/* Header */}
-        <div className={`mb-8 sm:mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`} style={{ willChange: "transform, opacity" }}>
-          <span className="text-[10px] tracking-[0.35em] uppercase font-bold block mb-3" style={{ color: "#C9862b", fontFamily: "'Poppins', sans-serif" }}>
-            Visual Inspiration
-          </span>
-          <h2 className="font-bold leading-tight" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "clamp(1.75rem, 4vw, 3.2rem)", color: "#0d0d0d" }}>
-            Inside Our{" "}
-            <span style={{ color: "#30534A" }}>Projects</span>{" "}
-            <span style={{ WebkitTextStroke: "1.5px #C9862b", color: "transparent" }}>&amp; Spaces</span>
+        <div className={`mb-6 sm:mb-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ willChange: "transform, opacity" }}>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#30534A]/8 text-[#30534A] text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3">
+            PHOTO GALLERY
+          </div>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#0d0d0d] leading-tight mb-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
+            Inside Our <span className="text-[#30534A]">Projects</span> <span className="text-[#C9862b]">&amp; Spaces</span>
           </h2>
+          <p className="text-xs sm:text-base text-[#666]">
+            Real site photographs showcasing wide concrete avenues, green spaces, and ready infrastructure.
+          </p>
         </div>
 
-        {/* Mobile slider */}
-        <div className={`md:hidden mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`} style={{ willChange: "transform, opacity" }}>
-          <div className="relative">
-            <div className="overflow-hidden rounded-2xl shadow-md">
-              <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-                {galleryItems.map((item) => (
-                  <div key={item.id} className="min-w-full relative group" onClick={() => setSelectedId(item.id)}>
-                    <img src={item.src} alt={item.alt} loading="lazy" decoding="async" className="w-full object-cover" style={{ height: "260px" }} />
-                    <div className="gallery-mobile-slide-overlay absolute inset-0 flex items-end p-4">
-                      <div>
-                        <span className="text-white/70 text-[10px] uppercase tracking-widest block mb-0.5">{item.category}</span>
-                        <p className="font-bold text-white text-base">{item.alt}</p>
-                        <p className="text-white/50 text-xs mt-0.5">Tap to enlarge</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+        {/* Mobile: 2 Cards per Row Grid */}
+        <div className={`md:hidden mb-8 grid grid-cols-2 gap-2 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`} style={{ willChange: "transform, opacity" }}>
+          {galleryItems.map((item) => (
+            <div
+              key={item.id}
+              className="relative rounded-2xl overflow-hidden shadow-xs border border-[#30534A]/10 group cursor-pointer active:scale-98 transition-transform"
+              onClick={() => setSelectedId(item.id)}
+            >
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-2.5">
+                <div>
+                  <span className="text-white/80 text-[8px] uppercase tracking-wider block font-semibold">{item.category}</span>
+                  <p className="font-bold text-white text-xs leading-tight line-clamp-1">{item.alt}</p>
+                </div>
               </div>
             </div>
-
-            <button onClick={prevSlide} aria-label="Previous" className="gallery-slide-nav-button absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center shadow-md active:scale-95 transition-all z-10">
-              <ChevronLeft className="w-4 h-4 text-white" />
-            </button>
-            <button onClick={nextSlide} aria-label="Next" className="gallery-slide-nav-button absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center shadow-md active:scale-95 transition-all z-10">
-              <ChevronRight className="w-4 h-4 text-white" />
-            </button>
-
-            <div className="flex justify-center gap-1.5 mt-4">
-              {galleryItems.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentSlide(i)}
-                  aria-label={`Slide ${i + 1}`}
-                  className="h-2 rounded-full transition-all duration-300"
-                  style={{
-                    width: currentSlide === i ? "2rem" : "0.5rem",
-                    background: currentSlide === i ? "#C9862b" : "rgba(48,83,74,0.25)"
-                  }}
-                />
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Desktop masonry */}

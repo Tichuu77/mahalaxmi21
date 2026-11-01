@@ -1,430 +1,382 @@
 "use client"
 
 import { useState, useRef, useEffect, useMemo, useCallback, memo } from "react"
-import { ArrowRight, MapPin, Phone } from "lucide-react"
+import { ArrowRight, MapPin, Phone, ShieldCheck, CheckCircle2, Download, Sparkles, Compass, Maximize2 } from "lucide-react"
 
-type Project = {
-  id: number
+type PlotCategory = {
+  id: string
   title: string
+  sizeRange: string
+  carpetDesc: string
+  roadWidth: string
+  facing: string
+  priceStarting: string
   image: string
+  tag: string
+  features: string[]
   description: string
-  location: string
-  status: string
+  suitableFor: string
 }
 
-// Static data at module level
-const projects = {
-  ongoing: [
-    { id: 1,  title: "Mahalaxmi Nagar-31",    image: "/ongoingProject8.webp",   description: "Ready to move residential layout on Besa-Pipla Road, opposite Zudio & Croma. Prime location with up to 90% bank finance.",                                                               location: "MOUZA - BESA",                      status: "ongoing"   },
-    { id: 2,  title: "Mahalaxmi Nagar-39",    image: "/ongoingProject5.webp",   description: "New project on Katol Road, Fetri (Chicholi), touching Outer Ring Road. Fully developed NMRDA & RL sanctioned.",                                                                           location: "MOUZA - FETRI",                     status: "ongoing"   },
-    { id: 3,  title: "Mahalaxmi Nagar-41",    image: "/ongoingProject3.webp",   description: "Premium layout near Samruddhi Mahamarg with clubhouse & swimming pool. NMRDA + RL approved. Up to 90% finance.",                                                                           location: "MOUZA - GOMGAON",                   status: "ongoing"   },
-    { id: 4,  title: "Mahalaxmi Nagar - 42",  image: "/ongoingProject2.webp",   description: "Well-connected plots near Jamtha, Wardha Road. NMRDA & RL sanctioned with excellent amenities.",                                                                                           location: "MOUZA - JAMTHA",                    status: "ongoing"   },
-    { id: 5,  title: "Mahalaxmi Nagar - 43",  image: "/project_43.jpg",         description: "Ready-to-move plots behind Royal Gondwana School, Shankarpur. Fully developed with 90% finance.",                                                                                          location: "MOUZA - SHANKARPUR",                status: "ongoing"   },
-    { id: 6,  title: "Mahalaxmi Nagar - 45",  image: "/project_M-45.jpg",       description: "Premium plotted development near Samruddhi Mahamarg, close to AIIMS, IIM, MIHAN & D-Mart.",                                                                                               location: "MOUZA - SUMTHANA",                  status: "ongoing"   },
-    { id: 7,  title: "Mahalaxmi Nagar - 46",  image: "/project_M-46.jpg",       description: "Premium plotted development near Samruddhi Mahamarg, close to AIIMS, IIM, MIHAN & D-Mart.",                                                                                               location: "MOUZA - BHANDARA JABALPUR OUTER RING ROAD TOUCH PROJECT",                  status: "ongoing"   },
-    { id: 8,  title: "Tattva Apas",           image: "/tatava apas.webp",       description: "Tattva Apas offers contemporary living with 100+ meticulously crafted apartments. Featuring landscaped gardens, play areas, and fitness centers, it fosters a vibrant social atmosphere.", location: "MOUZA - BELTARODI",                 status: "ongoing"   },
-    { id: 9, title: "Mahalaxmi Nagar - 47",  image: "/project_M-47.jpg",       description: "New launch behind Haldiram & AM Cinema on Koradi Road. NMRDA & RL approved with 90% finance.",                                                                                            location: "KORADI ROAD (Behind Haldiram)",     status: "ongoing"   },
-    { id: 10, title: "Mahalaxmi Nagar - 49",  image: "/project_M-49.jpeg",           description: "", location: "Mouza SONDAPAR MIHAN NEAR AIIMS AND NCI OUTER RING ROAD TOUCH", status: "ongoing" },
-     { id: 11, title: "Anaya Mahalaxmi Nagar - 51",  image: "/project_M-51.jpeg",           description: "Mahalaxmi Developers launched the project Anaya Mahalaxmi Nagar 51. The layout is NIT / NMRDA sanctioned with 90% bank finance.", location: "MOUZA - SUMTHANA MIHAN D-MART bACK SIDE NEAR OUTER RING ROAD SAMRUDDHI CIRCLE AIIMS NCI", status: "ongoing" },
-    { id: 12, title: "Mahalaxmi Nagar - 52",  image: "/project_M-52.jpg",           description: "Mahalaxmi Developers launched the project Mahalaxmi Nagar 52. The layout is NIT / NMRDA sanctioned with 90% bank finance.", location: "MOUZA - DHAMNA HUDKESHAR ROAD NEAR OUTER RING ROAD", status: "ongoing" },
-    { id: 13, title: "Mahalaxmi Nagar - 53",  image: "/plotDef.avif",           description: "", location: "MOUZA - SALAI (GODHANI)", status: "ongoing" },
-    { id: 14, title: "Mahalaxmi Nagar - 54",  image: "/plotDef.avif",           description: "", location: "MOUZA - BHILGAON, KAMPTEE ROAD", status: "ongoing" },
-  ],
-  completed: [
-    { id: 15, title: "Mahalaxmi Nagar - 37",  image: "/completedProject1.webp", description: "NMRDA & RL sanctioned layout in Kotewada. 75-80% bank loan approved.",                    location: "MOUZA - KOTEWADA", status: "completed" },
-    { id: 16, title: "Mahalaxmi Nagar - 35",  image: "/completedProject2.webp", description: "Fully delivered premium layout with all amenities completed.",                             location: "MOUZA - KOTEWADA", status: "completed" },
-    { id: 17, title: "Mahalaxmi Nagar - 34",  image: "/completedProject3.webp", description: "Successfully delivered project with high appreciation value.",                             location: "MOUZA - BAHADURA", status: "completed" },
-  ],
-  upcoming: [
-    { id: 18, title: "Mahalaxmi Nagar - 48",  image: "/plotDef.avif",           description: "", location: "", status: "upcoming" },
-    { id: 19, title: "Mahalaxmi Nagar - 50",  image: "/plotDef.avif",           description: "", location: "", status: "upcoming" },
-  ],
-}
-
-const ALL_PROJECTS: Project[] = [
-  ...projects.completed,
-  ...projects.ongoing,
-  ...projects.upcoming,
+const PLOT_COLLECTIONS: PlotCategory[] = [
+  {
+    id: "executive",
+    title: "Executive Villa Plots",
+    sizeRange: "1,130 – 1,500 Sq.Ft",
+    carpetDesc: "Approx 105 to 140 Sq.Mtrs",
+    roadWidth: "9m & 12m Cement Roads",
+    facing: "East / West Facing Available",
+    priceStarting: "Starting ₹35.4 Lakh*",
+    image: "/project_M-51.png",
+    tag: "Most Popular",
+    features: ["NMRDA Sanctioned", "Clear Title RL", "Underground Drainage", "Up to 90% Loan"],
+    description: "Perfect dimensions for building modern 3 to 4 BHK independent duplex villas. Positioned along quiet internal paved avenues with manicured street lighting and complete underground utility conduits.",
+    suitableFor: "Ideal for young families, professionals, and smart investors seeking high capital appreciation.",
+  },
+  {
+    id: "boulevard",
+    title: "Premium Boulevard Plots",
+    sizeRange: "1,800 – 2,500 Sq.Ft",
+    carpetDesc: "Approx 167 to 232 Sq.Mtrs",
+    roadWidth: "12m & 18m Tree-Lined Boulevards",
+    facing: "Central Garden & Park Facing",
+    priceStarting: "Custom Pricing on Request",
+    image: "/gallery3.jpg",
+    tag: "Garden Facing",
+    features: ["Park Frontage", "Grand Avenues", "Rainwater Harvesting", "Bank Approved"],
+    description: "Positioned directly facing the landscaped central lawns and botanical gardens. Provides generous width allowing spacious front lawns, dual-car driveways, and expansive private terrace verandas.",
+    suitableFor: "Designed for buyers planning luxury custom villas with private landscaping and open green views.",
+  },
+  {
+    id: "estate",
+    title: "Royal Estate Corner Plots",
+    sizeRange: "3,000 – 5,000 Sq.Ft",
+    carpetDesc: "Approx 278 to 465 Sq.Mtrs",
+    roadWidth: "Dual Road Access (12m & 18m)",
+    facing: "Double-Side Open Corner",
+    priceStarting: "Flagship Luxury Plots",
+    image: "/gallery1.jpg",
+    tag: "Exclusive Release",
+    features: ["Corner Parcel", "Double Access", "Maximum Privacy", "Prime Elevation"],
+    description: "The crown jewels of Mahalaxmi Nagar 51 Anaya. Limited edition large corner plots with dual road frontages, ideal for multi-storey royal mansions, swimming pools, private gazebos, and grand courtyards.",
+    suitableFor: "Tailored for HNIs, industrialists, and multi-generational families building landmark private estates.",
+  },
+  {
+    id: "clubhouse",
+    title: "Clubhouse & Sports Enclave Plots",
+    sizeRange: "1,500 – 2,200 Sq.Ft",
+    carpetDesc: "Approx 140 to 205 Sq.Mtrs",
+    roadWidth: "12m Wide Central Ring",
+    facing: "Clubhouse & Turf Facing",
+    priceStarting: "Lifestyle Premium",
+    image: "/gallery9.jpg",
+    tag: "Next to Amenities",
+    features: ["30-Sec Walk to Pool", "Turf Proximity", "Creche Nearby", "24/7 Security"],
+    description: "Situated just steps away from the grand multi-facility Clubhouse, Olympic-length swimming pool, Box Cricket Turf, Football Turf, and the day-care crèche. Offers unmatched everyday convenience.",
+    suitableFor: "Ideal for active families with children and sports enthusiasts who value healthy resort living.",
+  },
 ]
 
-const STATUS_CONFIG = {
-  completed: { label: "Completed", dot: "#22c55e", bg: "rgba(34,197,94,0.1)",   text: "#16a34a", border: "rgba(34,197,94,0.3)"   },
-  ongoing:   { label: "Ongoing",   dot: "#C9862b", bg: "rgba(201,134,43,0.12)", text: "#a86a1a", border: "rgba(201,134,43,0.35)" },
-  upcoming:  { label: "Upcoming",  dot: "#3b82f6", bg: "rgba(59,130,246,0.1)",  text: "#2563eb", border: "rgba(59,130,246,0.3)"  },
-}
-
-const TAGS = ["NMRDA Approved", "Bank Finance"]
-const FEATURED_TAGS = [...TAGS, "RERA Certified"]
 
 const TABS = [
-  { label: "All",       value: "all"       },
-  { label: "Ongoing",   value: "ongoing"   },
-  { label: "Completed", value: "completed" },
-  { label: "Upcoming",  value: "upcoming"  },
+  { label: "All Plot Layouts",     value: "all"       },
+  { label: "1,130 – 1,500 Sq.Ft",  value: "executive" },
+  { label: "1,800 – 2,500 Sq.Ft",  value: "boulevard" },
+  { label: "3,000 – 5,000 Sq.Ft",  value: "estate"    },
+  { label: "Clubhouse Enclave",    value: "clubhouse" },
 ] as const
 
 type TabValue = (typeof TABS)[number]["value"]
 
-// WhatsApp URL builders — pure functions, outside components
-const featuredWAUrl = (title: string, location: string) =>
-  `https://wa.me/919326709970?text=${encodeURIComponent(`Hi, I'm interested in "${title}" at ${location}. Could you share more details?`)}`
-
-const cardWAUrl = (title: string, location: string) =>
-  `https://wa.me/919326709970?text=${encodeURIComponent(`Hi, I'm interested in "${title}" at ${location}. Could you share more details?`)}`
-
-/* ── FeaturedCard ── */
-const FeaturedCard = memo(({ project }: { project: Project }) => {
-  const cfg = STATUS_CONFIG[project.status as keyof typeof STATUS_CONFIG]
-
-  const handleWhatsApp = useCallback(() => {
-    window.open(featuredWAUrl(project.title, project.location), "_blank")
-  }, [project.title, project.location])
-
-  return (
-    <div
-      className="rounded-3xl overflow-hidden"
-      style={{ background: "#fff", border: "1px solid rgba(48,83,74,0.12)", boxShadow: "0 14px 44px rgba(48,83,74,0.1)" }}
-    >
-      <div className="flex flex-col lg:grid lg:grid-cols-[1.5fr_1fr]">
-        {/* Image */}
-        <div className="relative overflow-hidden" style={{ minHeight: "220px", maxHeight: "460px" }}>
-          <img
-            src={project.image}
-            alt={project.title}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover"
-            style={{ minHeight: "220px" }}
-          />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 55%)" }} />
-
-          <div
-            className="absolute top-4 left-4 flex items-center gap-1.5 rounded-full px-3 py-1.5"
-            style={{ background: "rgba(255,255,255,0.92)", border: `1px solid ${cfg.border}`, backdropFilter: "blur(8px)" }}
-          >
-            <span className="w-2 h-2 rounded-full" style={{ background: cfg.dot }} />
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: cfg.text, fontFamily: "'Poppins', sans-serif" }}>
-              {cfg.label}
-            </span>
-          </div>
-
-          <div className="lg:hidden absolute bottom-4 left-4 right-4">
-            <p className="text-[10px] font-bold tracking-[0.25em] uppercase mb-1" style={{ color: "#C9862b", fontFamily: "'Poppins', sans-serif" }}>
-              ★ Featured Project
-            </p>
-            <h3 className="font-bold text-white leading-tight drop-shadow-lg" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "1.25rem" }}>
-              {project.title}
-            </h3>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[linear-gradient(180deg,#ffffff_0%,#fbfcfb_100%)]">
-          <div>
-            <div className="hidden lg:block mb-6">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="block w-8 h-px" style={{ background: "#C9862b" }} />
-                <span className="text-[10px] font-bold tracking-[0.3em] uppercase" style={{ color: "#C9862b", fontFamily: "'Poppins', sans-serif" }}>
-                  Featured Project
-                </span>
-              </div>
-              <h3 className="font-bold text-[#0d0d0d] leading-tight" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "clamp(1.3rem, 2vw, 1.9rem)" }}>
-                {project.title}
-              </h3>
-            </div>
-
-            <div className="flex items-center gap-2 mb-3">
-              <MapPin size={13} style={{ color: "#C9862b", flexShrink: 0 }} />
-              <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: "#999", fontFamily: "'Inter', sans-serif" }}>
-                {project.location}
-              </span>
-            </div>
-
-            <p className="leading-relaxed mb-5 text-sm" style={{ color: "#555", fontFamily: "'Inter', sans-serif" }}>
-              {project.description}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-6">
-              {FEATURED_TAGS.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-[10px] font-semibold rounded-full px-3 py-1"
-                  style={{ background: "rgba(48,83,74,0.07)", border: "1px solid rgba(48,83,74,0.18)", color: "#30534A", fontFamily: "'Inter', sans-serif" }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <button
-            onClick={handleWhatsApp}
-            className="group flex items-center justify-center gap-2 font-bold text-sm px-6 py-3.5 rounded-xl text-white transition-all duration-300 hover:scale-[1.01] active:scale-95 w-full"
-            style={{ background: "linear-gradient(135deg, #30534A, #3d6b60)", boxShadow: "0 6px 20px rgba(48,83,74,0.28)", fontFamily: "'Poppins', sans-serif", letterSpacing: "0.03em" }}
-          >
-            <Phone size={15} />
-            Contact Us
-            <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-})
-FeaturedCard.displayName = "FeaturedCard"
-
-/* ── ProjectCard ── */
-const ProjectCard = memo(({ project }: { project: Project }) => {
-  const cfg = STATUS_CONFIG[project.status as keyof typeof STATUS_CONFIG]
-
-  const handleWhatsApp = useCallback(() => {
-    window.open(cardWAUrl(project.title, project.location), "_blank")
-  }, [project.title, project.location])
-
-  const handleEnter = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    e.currentTarget.style.background = "#30534A"
-    e.currentTarget.style.color = "#fff"
-    e.currentTarget.style.borderColor = "transparent"
-    e.currentTarget.style.boxShadow = "0 6px 18px rgba(48,83,74,0.3)"
-  }, [])
-
-  const handleLeave = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    e.currentTarget.style.background = "rgba(48,83,74,0.07)"
-    e.currentTarget.style.color = "#30534A"
-    e.currentTarget.style.borderColor = "rgba(48,83,74,0.18)"
-    e.currentTarget.style.boxShadow = "none"
-  }, [])
-
-  return (
-    <div
-      className="group rounded-2xl overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl active:scale-[0.99]"
-      style={{ background: "#fff", border: "1px solid rgba(48,83,74,0.1)", boxShadow: "0 8px 24px rgba(48,83,74,0.08)", willChange: "transform" }}
-    >
-      <div className="relative overflow-hidden" style={{ height: "200px" }}>
-        <img
-          src={project.image}
-          alt={project.title}
-          loading="lazy"
-          decoding="async"
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 55%)" }} />
-
-        <div
-          className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-3 py-1"
-          style={{ background: "rgba(255,255,255,0.92)", border: `1px solid ${cfg.border}`, backdropFilter: "blur(6px)" }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background: cfg.dot }} />
-          <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: cfg.text, fontFamily: "'Poppins', sans-serif" }}>
-            {cfg.label}
-          </span>
-        </div>
-      </div>
-
-      <div className="p-4 sm:p-5 flex flex-col flex-1 bg-[linear-gradient(180deg,#ffffff_0%,#fcfdfc_100%)]">
-        <h3
-          className="font-bold mb-2 leading-snug transition-colors duration-200 group-hover:text-[#30534A]"
-          style={{ fontFamily: "'Poppins', sans-serif", fontSize: "0.95rem", color: "#0d0d0d" }}
-        >
-          {project.title}
-        </h3>
-
-        <div className="flex items-center gap-1.5 mb-3">
-          <MapPin size={12} style={{ color: "#C9862b", flexShrink: 0 }} />
-          <span className="text-[11px] font-semibold tracking-wider uppercase" style={{ color: "#aaa", fontFamily: "'Inter', sans-serif" }}>
-            {project.location}
-          </span>
-        </div>
-
-        <p
-          className="leading-relaxed mb-4 flex-1"
-          style={{
-            color: "#666",
-            fontFamily: "'Inter', sans-serif",
-            fontSize: "0.82rem",
-            display: "-webkit-box",
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-          }}
-        >
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {TAGS.map((tag) => (
-            <span
-              key={tag}
-              className="text-[10px] font-semibold rounded-full px-2.5 py-1"
-              style={{ background: "rgba(201,134,43,0.08)", border: "1px solid rgba(201,134,43,0.22)", color: "#a86a1a", fontFamily: "'Inter', sans-serif" }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <button
-          onClick={handleWhatsApp}
-          onMouseEnter={handleEnter}
-          onMouseLeave={handleLeave}
-          className="group/btn w-full flex items-center justify-center gap-2 font-semibold text-xs py-3 rounded-xl transition-all duration-250 active:scale-95"
-          style={{ background: "rgba(48,83,74,0.07)", color: "#30534A", border: "1px solid rgba(48,83,74,0.18)", fontFamily: "'Poppins', sans-serif", letterSpacing: "0.04em" }}
-        >
-          <Phone size={12} />
-          Contact Us
-          <ArrowRight size={12} className="group-hover/btn:translate-x-0.5 transition-transform" />
-        </button>
-      </div>
-
-      <div
-        className="h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ background: "linear-gradient(90deg, #C9862b, #30534A)" }}
-      />
-    </div>
-  )
-})
-ProjectCard.displayName = "ProjectCard"
-
-/* ── Section ── */
 export function ProjectsSection() {
-  const [activeTab, setActiveTab] = useState<TabValue>("all")
-  const [isVisible, setIsVisible] = useState(false)
+  const [selectedTab, setSelectedTab] = useState<TabValue>("all")
+  const [modalImage, setModalImage] = useState<string | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
-  const hasAnimated = useRef(false)
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const el = sectionRef.current
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          setIsVisible(true)
-          hasAnimated.current = true
-        }
+        if (entry.isIntersecting) setIsVisible(true)
       },
-      { threshold: 0.06, rootMargin: "60px" }
+      { threshold: 0.05 }
     )
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
-  const filtered = useMemo(
-    () => activeTab === "all" ? ALL_PROJECTS : ALL_PROJECTS.filter((p) => p.status === activeTab),
-    [activeTab]
-  )
+  const filteredPlots = useMemo(() => {
+    if (selectedTab === "all") return PLOT_COLLECTIONS
+    return PLOT_COLLECTIONS.filter((p) => p.id === selectedTab)
+  }, [selectedTab])
 
-  const [featured, ...rest] = filtered
+  const handleWhatsAppInquiry = useCallback((title: string, sizeRange: string) => {
+    const text = `Hi, I am interested in the "${title} (${sizeRange})" at Mahalaxmi Nagar 51 Anaya, Mouza Sumthana. Please share the detailed layout plan, available plot numbers, and pricing.`
+    window.open(`https://wa.me/919326709970?text=${encodeURIComponent(text)}`, "_blank")
+  }, [])
 
   return (
     <section
       ref={sectionRef}
       id="projects"
-      className="projects-section relative overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #ffffff 0%, #f9fbfa 70%, #ffffff 100%)" }}
+      className="projects-section relative overflow-hidden py-10 sm:py-16"
+      style={{ background: "#fbfcfb" }}
     >
-      {/* Left accent stripe */}
-      <div
-        className="absolute top-0 left-0 bottom-0 w-1"
-        style={{ background: "linear-gradient(to bottom, #C9862b, #30534A, #C9862b)" }}
-      />
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 relative z-10">
 
-      {/* Dot texture */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ backgroundImage: "radial-gradient(rgba(48,83,74,0.07) 1px, transparent 1px)", backgroundSize: "24px 24px" }}
-      />
-
-      {/* Label strip */}
-      <div
-        className="flex items-center gap-4 pl-6 pr-4 sm:pl-12 sm:pr-10 lg:px-24 py-5 relative z-10"
-        style={{ borderBottom: "1px solid rgba(48,83,74,0.1)" }}
-      >
-        <span
-          className="text-[10px] tracking-[0.3em] uppercase font-bold px-3 py-1 rounded-full"
-          style={{ color: "#a86a1a", background: "rgba(201,134,43,0.12)", border: "1px solid rgba(201,134,43,0.3)", fontFamily: "'Poppins', sans-serif" }}
-        >
-          Portfolio
-        </span>
-        <span className="flex-1 h-px" style={{ background: "rgba(48,83,74,0.1)" }} />
-        <span className="text-[10px] tracking-[0.2em] uppercase font-medium" style={{ color: "rgba(48,83,74,0.35)", fontFamily: "'Inter', sans-serif" }}>70+ Projects</span>
-      </div>
-
-      {/* Header */}
-      <div
-        className={`max-w-[1320px] mx-auto pl-6 pr-4 sm:pl-12 sm:pr-10 lg:px-24 pt-12 pb-8 relative z-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        style={{ willChange: "transform, opacity" }}
-      >
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 p-5 sm:p-7 rounded-2xl" style={{ background: "rgba(255,255,255,0.75)", border: "1px solid rgba(48,83,74,0.1)", boxShadow: "0 8px 26px rgba(48,83,74,0.06)" }}>
-          <div>
-            <h2
-              className="font-bold text-[#0d0d0d] leading-tight"
-              style={{ fontFamily: "'Poppins', sans-serif", fontSize: "clamp(1.75rem, 5vw, 3.2rem)" }}
-            >
-              Our{" "}
-              <span style={{ color: "#30534A" }}>Projects</span>{" "}
-              &amp;{" "}
-              <span style={{ WebkitTextStroke: "1.5px #C9862b", color: "transparent" }}>Portfolio</span>
-            </h2>
-            <p className="mt-2 max-w-md text-sm leading-relaxed" style={{ color: "#888", fontFamily: "'Inter', sans-serif" }}>
-              Explore our completed, ongoing, and upcoming developments across Nagpur.
-            </p>
+        {/* Section Title & Intro */}
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#30534A]/8 text-[#30534A] text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3">
+            <Sparkles size={13} className="text-[#C9862b]" />
+            ANAYA 51 MASTERPLAN &amp; INVENTORY
           </div>
 
-          <div
-            className="flex gap-2 overflow-x-auto sm:flex-wrap sm:overflow-visible"
-            style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" } as React.CSSProperties}
+          <h2
+            className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#0d0d0d] leading-tight mb-2 sm:mb-3"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
           >
-            {TABS.map((t) => (
+            Sanctioned Villa Plots &amp; <span className="text-[#30534A]">Township</span> <span className="text-[#C9862b]">Inventory</span>
+          </h2>
+
+          <p className="text-xs sm:text-base text-[#555] leading-relaxed">
+            Spanning across a massive 78-acre integrated master plan at Mouza Sumthana.
+            Featuring 524 clear-title, NMRDA-sanctioned residential plots with up to 90% bank loan approval.
+          </p>
+        </div>
+
+        {/* Masterplan Showcase Banner Card */}
+        <div
+          className="rounded-2xl sm:rounded-3xl overflow-hidden mb-8 sm:mb-14 shadow-lg sm:shadow-xl border border-[#30534A]/15 bg-white"
+          style={{ boxShadow: "0 10px 30px rgba(48,83,74,0.08)" }}
+        >
+          <div className="grid lg:grid-cols-[1.3fr_0.9fr] items-stretch">
+            {/* Visual Masterplan Image with Zoom */}
+            <div className="relative group bg-[#11231e] min-h-[240px] sm:min-h-[420px] overflow-hidden flex items-center justify-center">
+              <img
+                src="/project_M-51.png"
+                alt="Mahalaxmi Nagar 51 Anaya Master Plan Layout"
+                className="w-full h-full object-contain p-3 sm:p-4 group-hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
+
+              <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/90 backdrop-blur-md px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-full flex items-center gap-1.5 sm:gap-2 border border-[#C9862b]/40">
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#22c55e]" />
+                <span className="text-[9px] sm:text-[11px] font-bold text-[#30534A] uppercase tracking-wider">
+                  Official Sanctioned Layout
+                </span>
+              </div>
+
               <button
-                key={t.value}
-                onClick={() => setActiveTab(t.value)}
-                className="shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all duration-250 active:scale-95"
-                style={{
-                  fontFamily: "'Poppins', sans-serif",
-                  background: activeTab === t.value ? "linear-gradient(135deg, #30534A, #3d6b60)" : "rgba(48,83,74,0.07)",
-                  color: activeTab === t.value ? "#fff" : "#30534A",
-                  border: activeTab === t.value ? "1px solid #30534A" : "1px solid rgba(48,83,74,0.15)",
-                  boxShadow: activeTab === t.value ? "0 8px 20px rgba(48,83,74,0.2)" : "none",
-                  letterSpacing: "0.05em",
-                  whiteSpace: "nowrap",
-                }}
+                onClick={() => setModalImage("/project_M-51.png")}
+                className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-black/60 hover:bg-[#30534A] text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 backdrop-blur-md transition-all cursor-pointer"
               >
-                {t.label}
+                <Maximize2 size={13} />
+                Zoom Masterplan
               </button>
-            ))}
+            </div>
+
+            {/* Masterplan Highlights & Specifications */}
+            <div className="p-4 sm:p-10 flex flex-col justify-between bg-gradient-to-b from-white to-[#fbfdfc]">
+              <div>
+                <div className="flex items-center gap-1.5 text-[#C9862b] text-[11px] sm:text-xs font-bold uppercase tracking-widest mb-1.5">
+                  <Compass size={14} />
+                  Integrated Master Township
+                </div>
+
+                <h3
+                  className="text-xl sm:text-3xl font-extrabold text-[#0d0d0d] mb-2 sm:mb-4 leading-tight"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                >
+                  Anaya — Designed for Royal Living &amp; High ROI
+                </h3>
+
+                <p className="text-xs sm:text-sm text-[#555] leading-relaxed mb-4 sm:mb-6">
+                  Strategically situated at Mouza Sumthana, touching the Samruddhi Mahamarg Interchange. Designed with wide cement roads, underground drainage, electrical conduit, landscaped open spaces, and world-class sports &amp; community infrastructure.
+                </p>
+
+                <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-6">
+                  <div className="p-2 sm:p-3 rounded-xl bg-[#30534A]/5 border border-[#30534A]/10">
+                    <span className="block text-[10px] sm:text-xs text-[#888]">Total Project Size</span>
+                    <span className="text-sm sm:text-lg font-extrabold text-[#30534A]">78+ Acres</span>
+                  </div>
+                  <div className="p-2 sm:p-3 rounded-xl bg-[#30534A]/5 border border-[#30534A]/10">
+                    <span className="block text-[10px] sm:text-xs text-[#888]">Total Sanctioned Plots</span>
+                    <span className="text-sm sm:text-lg font-extrabold text-[#C9862b]">524 Units</span>
+                  </div>
+                  <div className="p-2 sm:p-3 rounded-xl bg-[#30534A]/5 border border-[#30534A]/10">
+                    <span className="block text-[10px] sm:text-xs text-[#888]">Plot Sizes Available</span>
+                    <span className="text-xs sm:text-sm font-bold text-[#0d0d0d]">1,130 to 5,000 Sq.Ft</span>
+                  </div>
+                  <div className="p-2 sm:p-3 rounded-xl bg-[#30534A]/5 border border-[#30534A]/10">
+                    <span className="block text-[10px] sm:text-xs text-[#888]">Bank Loan Approval</span>
+                    <span className="text-xs sm:text-sm font-bold text-[#0d0d0d]">Up to 85% - 90%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 pt-3 border-t border-[#30534A]/10">
+                <a
+                  href="tel:+919326709970"
+                  className="flex items-center justify-center gap-1.5 py-3 rounded-xl text-white font-bold text-xs sm:text-sm shadow-md transition-all hover:scale-[1.01] active:scale-95 text-center"
+                  style={{
+                    background: "linear-gradient(135deg, #30534A 0%, #203b34 100%)",
+                    fontFamily: "'Poppins', sans-serif",
+                  }}
+                >
+                  <Phone size={14} className="text-[#C9862b]" />
+                  Call Desk (+91 9326709970)
+                </a>
+
+                <a
+                  href="#contact"
+                  className="flex items-center justify-center gap-1.5 py-3 rounded-xl text-[#30534A] border border-[#30534A]/30 hover:border-[#C9862b] hover:text-[#C9862b] font-semibold text-xs sm:text-sm transition-all text-center"
+                >
+                  Request Masterplan PDF
+                  <Download size={14} />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Filter Navigation Tabs (Horizontal Scrollable on Mobile) */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-6 sm:mb-8 scrollbar-none sm:justify-center sm:flex-wrap">
+          {TABS.map((tab) => (
+            <button
+              key={tab.value}
+              onClick={() => setSelectedTab(tab.value)}
+              className="px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer"
+              style={{
+                fontFamily: "'Poppins', sans-serif",
+                background:
+                  selectedTab === tab.value
+                    ? "linear-gradient(135deg, #30534A, #244139)"
+                    : "rgba(48,83,74,0.06)",
+                color: selectedTab === tab.value ? "#ffffff" : "#30534A",
+                border:
+                  selectedTab === tab.value
+                    ? "1px solid #30534A"
+                    : "1px solid rgba(48,83,74,0.15)",
+                boxShadow:
+                  selectedTab === tab.value
+                    ? "0 4px 15px rgba(48,83,74,0.25)"
+                    : "none",
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Grid of Dedicated Mahalaxmi Nagar 51 Plot Collections: 2 per row on mobile */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-5 mb-8 sm:mb-12">
+          {filteredPlots.map((plot) => (
+            <div
+              key={plot.id}
+              className="rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-[#30534A]/12 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+              style={{ boxShadow: "0 6px 20px rgba(48,83,74,0.06)" }}
+            >
+              <div>
+                {/* Card Top Image & Badges */}
+                <div className="relative h-28 sm:h-44 overflow-hidden bg-[#182a25]">
+                  <img
+                    src={plot.image}
+                    alt={plot.title}
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
+
+                  <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-bold text-[#30534A] tracking-wider uppercase border border-[#C9862b]/30">
+                    {plot.tag}
+                  </div>
+
+                  <span className="absolute bottom-2 right-2 bg-[#C9862b] text-white text-[9px] sm:text-xs font-bold px-2 py-0.5 rounded-md shadow-xs">
+                    {plot.sizeRange}
+                  </span>
+                </div>
+
+                {/* Card Body Details */}
+                <div className="p-2.5 sm:p-5">
+                  <span className="text-[9px] sm:text-[10px] font-bold text-[#C9862b] uppercase tracking-wider block mb-0.5">
+                    Anaya 51
+                  </span>
+
+                  <h4
+                    className="text-xs sm:text-base font-bold text-[#0d0d0d] leading-snug line-clamp-1 mb-2"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}
+                  >
+                    {plot.title}
+                  </h4>
+
+                  <div className="space-y-1 pb-2.5 mb-2.5 border-b border-[#30534A]/10 text-[10px] sm:text-xs">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#888]">Facing:</span>
+                      <span className="font-semibold text-[#0d0d0d] truncate ml-1">{plot.facing}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#888]">Road:</span>
+                      <span className="font-semibold text-[#0d0d0d] truncate ml-1">{plot.roadWidth}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#888]">Pricing:</span>
+                      <span className="font-bold text-[#C9862b] truncate ml-1">{plot.priceStarting}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-[10px] sm:text-xs text-[#666] leading-tight line-clamp-2 mb-2 hidden sm:block">
+                    {plot.description}
+                  </p>
+                </div>
+              </div>
+
+              {/* Card Footer Actions */}
+              <div className="p-2.5 sm:p-5 pt-0">
+                <button
+                  onClick={() => handleWhatsAppInquiry(plot.title, plot.sizeRange)}
+                  className="w-full flex items-center justify-center gap-1 py-2 sm:py-2.5 rounded-xl text-white font-bold text-[11px] sm:text-xs transition-all hover:scale-[1.01] active:scale-95 cursor-pointer"
+                  style={{
+                    background: "linear-gradient(135deg, #30534A, #25423b)",
+                    fontFamily: "'Poppins', sans-serif",
+                  }}
+                >
+                  <Phone size={12} className="text-[#C9862b]" />
+                  <span>Inquire Plan</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
 
-      {/* Cards */}
-      <div
-        className={`max-w-[1320px] mx-auto pl-6 pr-4 sm:pl-12 sm:pr-10 lg:px-24 pb-10 relative z-10 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        style={{ willChange: "transform, opacity" }}
-      >
-        {filtered.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="text-5xl mb-4">🏗️</div>
-            <p className="text-base" style={{ color: "#aaa", fontFamily: "'Inter', sans-serif" }}>No projects in this category yet.</p>
+      {/* Fullscreen Masterplan Modal */}
+      {modalImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8"
+          onClick={() => setModalImage(null)}
+        >
+          <div className="relative max-w-5xl w-full max-h-[90vh] bg-white rounded-2xl overflow-hidden p-2">
+            <button
+              onClick={() => setModalImage(null)}
+              className="absolute top-4 right-4 z-10 bg-black/70 hover:bg-black text-white p-2 rounded-full cursor-pointer"
+            >
+              ✕
+            </button>
+            <img
+              src={modalImage}
+              alt="Full Masterplan"
+              className="w-full h-auto max-h-[85vh] object-contain rounded-xl"
+            />
+            <div className="p-3 text-center text-xs text-[#555] font-semibold">
+              Mahalaxmi Nagar 51 (Anaya) • Sanctioned Township Master Plan • RERA: PP1190002602003
+            </div>
           </div>
-        ) : (
-          <div className="space-y-6">
-            {featured && <FeaturedCard project={featured} />}
-            {rest.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {rest.map((project, i) => (
-                  <div
-                    key={project.id}
-                    className="transition-all duration-500"
-                    style={{ transitionDelay: `${i * 60}ms` }}
-                  >
-                    <ProjectCard project={project} />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </section>
   )
 }

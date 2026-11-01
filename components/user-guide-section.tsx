@@ -317,11 +317,11 @@ const GuideStep = memo(({ guide, index, isOpen, onToggle }: {
 GuideStep.displayName = "GuideStep"
 
 const TipsGrid = memo(() => (
-  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-4">
     {tips.map((tip, i) => (
       <div
         key={i}
-        className="rounded-2xl p-5 flex flex-col gap-3 relative overflow-hidden"
+        className="rounded-2xl p-3 sm:p-5 flex flex-col gap-2 sm:gap-3 relative overflow-hidden"
         style={{
           background: i === 0
             ? "linear-gradient(135deg, #30534A 0%, #1e3a32 100%)"
@@ -347,10 +347,10 @@ const TipsGrid = memo(() => (
             }}
           />
         )}
-        <div className="flex items-center gap-2.5" style={{ position: "relative", zIndex: 1 }}>
-          <span className="text-xl">{tip.emoji}</span>
+        <div className="flex items-center gap-1.5 sm:gap-2.5" style={{ position: "relative", zIndex: 1 }}>
+          <span className="text-base sm:text-xl">{tip.emoji}</span>
           <span
-            className="font-bold text-xs uppercase tracking-wider"
+            className="font-bold text-[10px] sm:text-xs uppercase tracking-wider truncate"
             style={{
               fontFamily: "'Poppins', sans-serif",
               color: i === 0 ? "#C9862b" : "#30534A",
@@ -361,7 +361,7 @@ const TipsGrid = memo(() => (
           </span>
         </div>
         <p
-          className="text-sm leading-relaxed"
+          className="text-[11px] sm:text-sm leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none"
           style={{
             fontFamily: "'Inter', sans-serif",
             color: i === 0 ? "rgba(255,255,255,0.7)" : "#777",
